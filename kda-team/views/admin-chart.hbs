@@ -1,0 +1,157 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Chart JS -->
+<script src="/admin/js/plugin/chart.js/chart.min.js"></script>
+
+<!-- jQuery Sparkline -->
+<script src="/admin/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Chart Circle -->
+<script src="/admin/js/plugin/chart-circle/circles.min.js"></script>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-start align-items-center">
+                <div class="card-title me-3">Chọn loại biểu đồ</div>
+                <div class="me-3">
+                    <select id="chartType" class="form-select form-select-sm">
+                        <option value="line">Biểu đồ đường</option>
+                        <option value="bar">Biểu đồ cột</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-primary me-1" id="btnToday">Hôm nay</button>
+                    <button class="btn btn-sm btn-secondary me-1" id="btnYesterday">Hôm qua</button>
+                    <button class="btn btn-sm btn-info me-1" id="btn7Days">7 ngày</button>
+                    <button class="btn btn-sm btn-warning me-1" id="btn30Days">30 ngày</button>
+                    <button class="btn btn-sm btn-success me-1" id="customDuration">Tự chọn</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="chartContainer">
+            
+        </div> 
+    </div>
+</div>
+<!-- Modal Chọn Ngày -->
+<div class="modal fade" id="dateRangeModal" tabindex="-1" aria-labelledby="dateRangeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dateRangeModalLabel">Chọn khoảng thời gian</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="startDate" class="form-label">Ngày bắt đầu</label>
+          <input type="date" class="form-control" id="startDate">
+        </div>
+        <div class="mb-3">
+          <label for="endDate" class="form-label">Ngày kết thúc</label>
+          <input type="date" class="form-control" id="endDate">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-primary" id="applyDateRange">Áp dụng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/admin/js/chart-script.js"></script>
+<script>
+    // Xử lý sự kiện khi nhấn nút "Tự chọn"
+    document.getElementById('customDuration').addEventListener('click', () => {
+        const myModal = new bootstrap.Modal(document.getElementById('dateRangeModal'));
+        myModal.show(); // Hiển thị modal
+    });
+
+    // Xử lý sự kiện khi nhấn nút "Áp dụng" trong modal
+    document.getElementById('applyDateRange').addEventListener('click', () => {
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+
+        // Kiểm tra nếu ngày bắt đầu và ngày kết thúc hợp lệ
+        if (startDate && endDate && new Date(startDate) <= new Date(endDate)) {
+            // Đóng modal sau khi áp dụng
+            const myModal = bootstrap.Modal.getInstance(document.getElementById('dateRangeModal'));
+            myModal.hide();
+
+            // Lưu ngày bắt đầu và kết thúc vào sessionStorage
+            sessionStorage.setItem('startDate', startDate);
+            sessionStorage.setItem('endDate', endDate);
+            console.log(currentButton)
+            // Cập nhật biểu đồ theo chartType và khoảng thời gian đã chọn
+            if(currentChartType == "line"){
+                updateLineChart(currentButton, 'revenue');
+            }else{
+                updateBarChart(currentButton, 'revenue');
+            }
+        } else {
+            alert("Vui lòng chọn ngày hợp lệ.");
+        }
+    });
+
+
+    const chartContainer = document.getElementById('chartContainer');
+    const chartTypeDropdown = document.getElementById('chartType');
+    const buttonContainer = document.querySelector('.card-header'); // Phần tử cha chứa các nút
+    let currentChartType = 'line'; // Loại biểu đồ hiện tại
+    let currentButton = 'btnToday'; // Nút thời gian hiện tại được chọn
+
+    // Đánh dấu nút được chọn
+    function selectButton(buttonId) {
+        const allButtons = document.querySelectorAll('.btn');
+        allButtons.forEach(btn => btn.classList.remove('active')); // Xóa class 'active' khỏi tất cả nút
+        document.getElementById(buttonId).classList.add('active'); // Thêm class 'active' cho nút được chọn
+    }
+
+    // Hàm cập nhật loại biểu đồ
+    function updateChartType(type, buttonId) {
+        let chartTemplate = '';
+        let defaultElement = '';
+        currentChartType = type; // Cập nhật loại biểu đồ hiện tại
+        currentButton = buttonId; // Cập nhật nút thời gian hiện tại
+        switch (type) {
+            case 'line':
+                chartTemplate = `{{>ad-chart-line data='Doanh thu'}}`;
+                chartContainer.innerHTML = chartTemplate; // Render Handlebars template
+                defaultElement = document.querySelector('a[data-type="revenue"]');
+                updateLineChart(buttonId, 'revenue');
+                break;
+            case 'bar':
+                chartTemplate = `{{>ad-chart-bar data='Doanh thu'}}`;
+                chartContainer.innerHTML = chartTemplate; // Render Handlebars template
+                defaultElement = document.querySelector('a[data-type="revenue"]');
+                updateBarChart(buttonId, 'revenue');
+                break;
+        }
+    }
+
+    // Xử lý sự kiện khi thay đổi dropdown
+    chartTypeDropdown.addEventListener('change', (event) => {
+        const selectedType = event.target.value;
+        updateChartType(selectedType, currentButton); // Mặc định giữ nguyên thời gian hiện tại
+    });
+
+    // Xử lý sự kiện khi nhấn các nút thời gian
+    buttonContainer.addEventListener('click', (event) => {
+        const clickedButton = event.target;
+
+        // Kiểm tra xem phần tử được nhấn có phải là nút
+        if (clickedButton.tagName === 'BUTTON') {
+            const buttonId = clickedButton.id;
+            selectButton(buttonId); // Đánh dấu nút được chọn
+            updateChartType(currentChartType, buttonId); // Cập nhật biểu đồ theo loại hiện tại
+        }
+    });
+
+    // Tự động load biểu đồ khi trang được tải
+    document.addEventListener('DOMContentLoaded', () => {
+        chartTypeDropdown.value = 'line'; // Đặt giá trị mặc định cho dropdown
+        selectButton('btnToday'); // Đặt nút "Hôm nay" làm mặc định
+        updateChartType('line', 'btnToday'); // Cập nhật biểu đồ line với "Hôm nay"
+    });
+
+</script>

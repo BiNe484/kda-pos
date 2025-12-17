@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
+        rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    <link rel="stylesheet" href="/css/templatemo-hexashop.css">
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+    <link rel="stylesheet" href="/css/lightbox.css">
+    <link rel="stylesheet" href="/css/order-style.css">
+    <link rel = "stylesheet" href = "/css/style.css">
+
+    <!--B-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css"
+        integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>{{title}} - KDA Web</title>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="/" class="logo">
+                            <img src="/images/logo.png">
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="/">Home</a></li>
+                            <li class="scroll-to-section"><a href="/order">Order</a></li>
+                            <li class="scroll-to-section"><a href="/menu">Menu</a></li>
+
+                            <!-- Profile Section -->
+                            {{#if user}}
+                            <li class="submenu">
+                                <a data-bs-toggle="collapse">Profile</a>
+                                <ul>
+                                    <li><a href="/profile">{{getUsername user.tenNhanVien}}</a></li>
+                                    {{#if (isAdmin user)}}
+                                    <li><a href="/admin"><span class="text-warning">Adminstrator</span></a></li>
+                                    {{/if}}
+                                   
+                                    <button class="btn btn-link btn-edit text-decoration-none"  style = "background-color:white" data-bs-toggle="modal" data-bs-target="#ChangePasswordModal"
+                                        title="Đổi mật khẩu" data-id="{{user.id_NV}}">
+                                        <i class="fa fa-edit" ></i> Change Password
+                                    </button>
+                                     <li><a href="/logout"><span class="text-danger">Log out</span></a></li>
+
+                                </ul>
+                            </li>
+                            {{else}}
+                            <li class="scroll-to-section"><a href="/login"><span class="text-primary">Login</span></a>
+                            </li>
+                            {{/if}}
+
+
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+    {{>change-password}}
+    {{{body}}} <!-- Nơi nội dung sẽ được chèn -->
+
+    <!-- jQuery -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="/js/popper.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="/js/owl-carousel.js"></script>
+    <script src="/js/accordions.js"></script>
+    <script src="/js/datepicker.js"></script>
+    <script src="/js/scrollreveal.min.js"></script>
+    <script src="/js/waypoints.min.js"></script>
+    <script src="/js/jquery.counterup.min.js"></script>
+    <script src="/js/imgfix.min.js"></script>
+    <script src="/js/slick.js"></script>
+    <script src="/js/lightbox.js"></script>
+    <script src="/js/isotope.js"></script>
+    <!-- Global Init -->
+    <script src="/js/custom.js"></script>
+
+    <script>
+        $(function () {
+            var selectedClass = "";
+            $("p").click(function () {
+                selectedClass = $(this).attr("data-rel");
+                $("#portfolio").fadeTo(50, 0.1);
+                $("#portfolio div").not("." + selectedClass).fadeOut();
+                setTimeout(function () {
+                    $("." + selectedClass).fadeIn();
+                    $("#portfolio").fadeTo(50, 1);
+                }, 500);
+            });
+        });
+        window.addEventListener("DOMContentLoaded", function () {
+            const currentPath = window.location.pathname; // Lấy đường dẫn hiện tại
+            const navLinks = document.querySelectorAll(".nav a");
+
+            navLinks.forEach(link => {
+                if (link.getAttribute("href") === currentPath) {
+                    link.classList.add("active"); // Gán class 'active' cho link trùng với URL
+                } else {
+                    link.classList.remove("active"); // Bỏ 'active' khỏi các link khác
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

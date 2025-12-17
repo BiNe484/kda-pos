@@ -1,0 +1,13 @@
+[{
+  "_id": {
+    "$oid": "670364b19489e825b0fe7483"
+  },
+  "voucher_ID": "SUMMER2024",
+  "moTa": "Giảm 20% cho tất cả sản phẩm",
+  "giamGia": 20,
+  "loaiKhuyenMai": "percentage",
+  "ngayBatDau": "2024-06-01",
+  "ngayKetThuc": "2024-08-31",
+  "isActive": true,
+  "conditions": "Áp dụng cho đơn hàng từ 500.000đ"
+}]

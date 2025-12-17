@@ -1,0 +1,785 @@
+<!--Body-->
+{{#if user}}
+<input type="hidden" name="employeeid" id="employeeid" value="{{getUsername user.id_NV}}">
+{{/if}}
+    <!--Row-->
+    <div class="process row d-flex justify-content-around">
+        <button id="process1" class="border" onclick="toProcess1(event)">1</button>
+        <button id="process2" class="border" onclick="toProcess2(event)">2</button>
+        <button id="process3" class="border process3" onclick="toProcess3(event)">3</button>
+    </div>
+    <div class="row mt-2 mx-1">
+<!--#####################################################################################################################################################################################################-->
+      <!--Left Content-->
+      <div id="left-content-order" class="left-content-order col-12 col-lg-8">
+        <div class="search mx-4"><input id="search" type="text" placeholder="Search"></div>
+        <!--List Product-->
+        <div id="list-product" class="list-product">
+            {{#if sanPhams.length}}
+              {{#each sanPhams}}
+                <div class="product m-3">    
+                  <div class="header-product">
+                    <img class="img-product" src="{{this.hinhSanPham}}" alt="{{this.tenSanPham}}">
+                    <div class="overlay">
+                      <div class="text">
+                        <button type="button" class="add-product" 
+                          data-id="{{_id}}"
+                          data-image="{{hinhSanPham}}"
+                          data-name="{{tenSanPham}}" 
+                          data-price="{{giaBan}}">
+                          Đặt
+                        </button>
+                      </div>
+                    </div>  
+                  </div>
+                  <div class="body-product text-center">
+                    <p class="mt-1"><strong>{{this.tenSanPham}}</strong></p>                    
+                    {{#if size.length}}
+                      <select class="text-danger size-select" data-id="{{_id}}" style="border:none;">
+                        {{#each size}}
+                          <option class="text-danger" value="{{this.kichCo}}" data-price="{{this.gia}}"><strong >{{this.kichCo}} - ${{this.gia}}</strong></option>
+                        {{/each}}
+                      </select>
+                      {{else}}
+                        <p class="text-danger">{{this.giaBan}}</p>
+                    {{/if}}
+                  </div>
+                </div>
+              {{/each}}
+            {{else}}
+              <div class="text-center">Không có sản phẩm nào.</div>
+            {{/if}}
+          </div>
+        <!--List Product End-->
+
+<!--#####################################################################################################################################################################################################-->
+
+                <!--Customer-->
+                <div id="customer" class="customer mt-3">
+                  <!--Telephone-->
+                  <div class="display-customer">
+                    <div class="check-phone-number">
+                      <input class="telephone-number" type="number" placeholder="Phone number" oninput="checkPhoneNumber()">
+                      <button type="button" class="btn btn-success" onclick="createMember()">Attend</button>
+                    </div>                   
+                  </div>
+                  <!--Telephone End-->
+
+                  <!--display customer info-->
+                  <div class="display-customer-info mt-3 row">
+                    <div class="col-12 col-lg-4">
+                          <p>Số điện thoại: <span id="phoneNumber">none</span></p>
+                          <p>Họ và tên: <span id="name">none</span></p>
+                          <p>Xếp hạng: <span id="rank">none</span></p>
+                          <p>Điểm tích lũy: <span id="point">none</span></p>
+                          <p>Số đơn hàng: <span id="tran-quantity">none</span></p>
+                          <p>Ngày gia nhập: <span id="date">none</span></p>
+                     </div>
+
+                     <div class="col-12 col-lg-8">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">ID</th>
+                              <th scope="col">Date</th>
+                              <th scope="col">Total</th>
+                              <th scope="col">Method</th>
+                              <th scope="col">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody id="transaction-list">
+
+                          </tbody>
+                        </table>
+                      </div>                    
+                    </div>
+
+                  </div>
+                  <!--display customer info End-->
+
+    <!--Payment Option-->
+    <div id="payment" class="mt-4">
+      
+      <!--Option-->
+      <div>
+          <input type="radio" id="cash" name="option" value="TienMat">
+          <label for="cash">Cash</label><br>
+          <input type="radio" id="card" name="option" value="TheTinDung">
+          <label for="card">Card</label>  
+      </div>
+      <!--Option End-->
+      
+      <!--Enter Received-->
+      <div class="selection mt-4">
+
+        <!--Cash-->
+          <div class="cash-op">
+            <div class="d-flex justify-content-end mr-4">
+              <div>
+
+                <div style="width:220px">
+                  <p>Received: </p>
+                  <input id="received" type="number" placeholder="0" style="text-align: right; height: 26px; width:100%;" min="1000">
+                </div>
+
+                <div class="d-flex justify-content-between " style="width:220px">
+                  <p>Change: </p>
+                  <input id="change" type="text" placeholder="0" style="text-align: right; color: black; height: 26px; width: 100%; border:none;" disabled>
+                </div>
+
+              </div>
+
+            </div>
+
+          <!--Nút cộng tiền-->
+          <div class="row d-flex justify-content-end mr-4">
+            <div class="col-lg-5 col-md-6 col-sm-12">
+              <div class="row">
+                <div class="col-4 text-center">
+                <button class="btn btn-outline-secondary" onclick="addValue(1000)">1000</button>
+                <button class="btn btn-outline-warning" onclick="addValue(10000)">10000</button>
+                <button class="btn btn-outline-success" onclick="addValue(100000)">100000</button>
+              </div>
+              <div class="col-4 text-center">
+                <button class="btn btn-outline-secondary" onclick="addValue(2000)">2000</button>
+                <button class="btn btn-outline-primary" onclick="addValue(20000)">20000</button>
+                <button class="btn btn-outline-warning" onclick="addValue(200000)">200000</button>
+              </div>
+              <div class="col-4 text-center">
+                <button class="btn btn-outline-primary" onclick="addValue(5000)">5000</button>
+                <button class="btn btn-outline-danger" onclick="addValue(50000)">50000</button>
+                <button class="btn btn-outline-info" onclick="addValue(500000)">500000</button>
+                <button class="btn bg-success text-white mt-3" onclick="setReceivedToTotal()">Trả đủ</button>
+              </div>
+              </div>          
+            </div>     
+          </div>
+                    
+              
+          </div>
+          <!--Cash End-->
+      </div>    
+      <!--Enter Received End-->                         
+    </div>
+    <!--Payment Option End-->                
+
+<!--#####################################################################################################################################################################################################-->
+
+      </div>
+      <!--Left Content End-->
+ 
+  
+<!--#####################################################################################################################################################################################################-->
+  
+      <!--Right Content-->
+      <div id="right-content-order" class="right-content-order col-12 col-lg-4">
+        <!--Cart and Delete-->
+        <div id="icon-cart">
+            <div class="icon d-flex justify-content-between mt-3 mx-3">
+              <i class="bi bi-cart3" style="font-size: 26px;"></i>
+              <i class="bi bi-arrow-clockwise" style="font-size: 26px; cursor: pointer;" onclick="clearCart()"></i>
+            </div>
+        </div>       
+        <!--Cart and Delete End-->
+<!--#####################################################################################################################################################################################################-->
+        <!--List Cart-->
+        <div id="list-cart" class="list-cart mt-3">
+          
+          <div class="cart-products" id="selected-products">
+            
+
+            <!--Product-->
+              <h4 class="d-flex align-items-end justify-content-center" style="height: 10rem;">Nothing here</h4>
+            <!--Cart-Products will be displayed here-->
+
+            <!--Product End-->
+          </div>
+          <!--Cart Products End-->
+          <input type="hidden" name="items" id="items">
+          
+        </div>
+        <!--List Cart End-->
+<!--#####################################################################################################################################################################################################-->
+        <!--Total-->
+        <div class="total">
+          <div class="d-flex justify-content-end">
+            <h3 id="total-amount">0</h3>
+          </div>
+          <div>
+            <button type="button" class="btn btn-info" id="next1" onclick="toProcess2(event)">Next</button>
+            <div class="d-flex align-items-end">
+              <button type="button" class="btn btn-info" id="back2" onclick="toProcess1(event)">Back</button>
+              <button type="button" class="btn btn-info process3" id="next2" onclick="toProcess3(event)">Next</button>
+            </div>
+            <div class="d-flex">
+              <button type="button" class="btn btn-info" id="back3" onclick="toProcess2(event)">Back</button>
+              <button type="button" class="btn btn-danger" id="checkout-btn">CheckOut</button>
+            </div>             
+          </div>          
+        </div>
+        <!--Total End-->
+<!--#####################################################################################################################################################################################################-->
+      </div>
+      <!--Right Content End-->
+
+<!--#####################################################################################################################################################################################################-->
+
+  </div>
+  <!--row End-->
+     
+
+<!--#####################################################################################################################################################################################################-->
+<!--Modal-->
+  <!---->
+  <div class="modal fade" id="warning" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title warning-title">Warning</h5>
+        </div>
+        <div class="modal-body">
+          <p class="warning-body"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End-->
+
+<!--Tạo mới khách hàng-->
+  <div class="modal fade" id="new-customer">
+  <div class="modal-dialog">
+      <div class="modal-content">
+
+          <div class="modal-header">
+              <h4 class="modal-title">Khách hàng chưa tham gia. Xác nhận tạo mới</h4>
+          </div>
+          <form action="">  
+          <div class="modal-body">
+            
+            <div class="form-group">
+                  <label for="content">Số điện thoại</label>
+                  <input type="text" placeholder="phone" class="form-control" id="new-phoneNumber"/>
+              </div>
+              <div class="form-group">
+                  <label for="name">Họ và tên:</label>
+                  <input type="text" placeholder="name" class="form-control" id="new-name" />
+              </div>       
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-success save" data-dismiss="modal" onclick="NewCustomer()">Lưu</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+          </form>
+
+      </div>
+  </div>
+</div>
+<!--End-->
+
+<!--Question-->
+  <div class="modal fade" id="question">
+  <div class="modal-dialog">
+      <div class="modal-content">
+
+          <div class="modal-header">
+              <h4 class="modal-title">"Lưu đơn hàng thành công"</h4>
+          </div>
+          <div class="modal-body">
+            
+            <div class="form-group">
+              <p>Tiếp tục nhận Order?</p>            
+          </div>
+
+          <div class="modal-footer">
+              <a class="btn btn-success" href="/">Quay lại Trang chủ</a>
+              <a class="btn btn-success" href="/order">Tiếp tục</a>
+          </div>
+
+          </div>
+      </div>
+  </div>
+  </div>
+<!--End-->
+
+<!--Chi tiết đơn hàng-->
+<!-- Modal -->
+<div class="modal fade" id="billDetailModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="billDetailModalLabel">Bill Details</h5>
+      </div>
+      <div class="modal-body">
+          <p><strong>Bill ID:</strong> <span id="modalBillId"></span></p>
+          <p><strong>Date:</strong> <span id="modalCreatedAt"></span></p>
+          <p><strong>Employee ID:</strong> <span id="modalEmployeeID"></span></p>
+          <p><strong>Employee Name:</strong> <span id="modalEmployeeName"></span></p>
+          <p><strong>Payment Method:</strong> <span id="modalPaymentMethod"></span></p>
+          <p><strong>Total Amount:</strong> <span id="modalTotalAmount"></span></p>
+          <p><strong>Received:</strong> <span id="modalReceivedAmount"></span></p>
+          <p><strong>Change:</strong> <span id="modalChangeAmount"></span></p>
+          <h6>Product Details:</h6>
+          <ul id="modalProductList"></ul>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-success" id="downloadLink">Download</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+<!--#####################################################################################################################################################################################################-->
+<!--End of Body-->
+<!--#####################################################################################################################################################################################################-->
+
+
+<!--#####################################################################################################################################################################################################-->
+<!--Script Below-->
+<!--#####################################################################################################################################################################################################-->
+<script src="js/order-script.js"></script>
+
+<!--Xử lí nghiệp vụ-->
+<script>
+  // Hàm để hiển thị modal
+function showModal(title, message, modalId) {
+  document.querySelector('.warning-title').textContent = title;
+  document.querySelector('.warning-body').textContent = message;
+  $(modalId).modal('show');
+}
+</script>
+<!--Kiểm tra khách hàng-->
+<script>
+  //Check sđt
+async function checkPhoneNumber() {
+  const phoneNumber = document.querySelector('.telephone-number').value;
+
+  try {
+    const response = await fetch('/customer/check', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ phoneNumber }),
+    });
+
+    const data = await response.json();
+
+    if (response.status === 200) {
+      // Hiển thị thông tin khách hàng vào các input fields
+      document.getElementById('phoneNumber').textContent = data.customerInfo.sdt;
+      document.getElementById('name').textContent = data.customerInfo.hoTen;
+      document.getElementById('rank').textContent = data.customerInfo.hangThanhVien;
+      document.getElementById('point').textContent = data.customerInfo.diemTichLuy;
+      document.getElementById('tran-quantity').textContent = data.customerInfo.giaoDich;
+      document.getElementById('date').textContent = new Date(data.customerInfo.ngayThem).toLocaleDateString();
+      // Hiển thị danh sách giao dịch
+      const transactionList = document.getElementById('transaction-list');
+      transactionList.innerHTML = ''; // Xóa nội dung cũ
+      data.giaoDich.forEach((bill, index) => {
+        const listItem = document.createElement('tr');
+        listItem.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${new Date(bill.ngayMua).toLocaleDateString()}</td>
+          <td>${bill.tongTien.toLocaleString()} VND</td>
+          <td>${bill.hinhThucThanhToan === 'TienMat' ? 'Tiền mặt' : 'Thẻ tín dụng'}</td>
+          <td><button class="btn btn-primary btn-sm" onclick="viewBillDetails('${bill._id}')">Chi tiết</button></td>
+        `;
+        transactionList.appendChild(listItem);
+      });
+      return;
+    }
+    
+    if(response.status === 404){
+            // Hiển thị thông tin khách hàng vào các input fields
+            document.getElementById('phoneNumber').textContent = 'none';
+            document.getElementById('name').textContent = 'none';
+            document.getElementById('rank').textContent = 'none';
+            document.getElementById('point').textContent = 'none';
+            document.getElementById('tran-quantity').textContent = 'none';
+            document.getElementById('date').textContent = 'none';
+            // Hiển thị danh sách giao dịch
+            const transactionList = document.getElementById('transaction-list');
+            transactionList.innerHTML = ''; // Xóa nội dung cũ
+            return;
+    }
+    
+  } catch (error) {
+    console.error('Lỗi khi kết nối với server:', error);
+    alert('Có lỗi xảy ra, vui lòng thử lại!');
+  }
+}
+// create?
+async function createMember() {
+  const phoneNumber = document.querySelector('.telephone-number').value;
+
+  if (!phoneNumber) {
+    showModal('Warning', 'Vui lòng nhập số điện thoại để kiểm tra', '#warning');
+    return;
+  }
+
+  try {
+    const response = await fetch('/customer/check', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ phoneNumber }),
+    });
+
+    const data = await response.json();
+
+    if (response.status === 200) {
+      showModal('Đã tồn tại', 'Khách hàng này đã gia nhập rồi', '#warning');
+      return;
+
+    } else if (data.status === 'not_found') {
+      document.querySelector('#new-phoneNumber').value = phoneNumber;
+      // Nếu không tìm thấy khách hàng, mở modal để tạo mới
+      $('#new-customer').modal('show');
+      return;
+    }
+  } catch (error) {
+    console.error('Lỗi khi kết nối với server:', error);
+    alert('Có lỗi xảy ra, vui lòng thử lại!');
+  }
+}
+// thêm khách hàng
+async function NewCustomer() {
+  const name = document.querySelector('#new-name').value.trim();
+  const phoneNumber = document.querySelector('#new-phoneNumber').value.trim();
+
+  if (!name || !phoneNumber) {
+    $('#new-customer').modal('hide');
+    showModal('Warning', 'Vui lòng nhập đầy đủ thông tin', '#warning');
+    return;
+  }
+
+  try {
+    // Gửi yêu cầu tạo khách hàng mới
+    const response = await fetch('/customer/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ hoTen: name, sdt: phoneNumber }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert('Tạo khách hàng thành công!');
+      // Đóng modal và làm mới trang hoặc cập nhật giao diện
+      $('#new-customer').modal('hide');
+      // Có thể thêm logic cập nhật danh sách khách hàng ở đây
+    } else {
+      alert(data.message || 'Không thể tạo khách hàng mới, vui lòng thử lại.');
+    }
+  } catch (error) {
+    console.error('Lỗi khi tạo khách hàng mới:', error);
+    alert('Có lỗi xảy ra, vui lòng thử lại!');
+  }
+}
+
+</script>
+
+<!--Chi tiết đơn hàng-->
+<script>
+async function viewBillDetails(billId) {
+  try {
+    // Gửi yêu cầu lấy chi tiết hóa đơn
+    const response = await fetch(`/customer/history/${billId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Không thể tải chi tiết hóa đơn');
+    }
+
+    const bill = await response.json();
+
+    // Cập nhật dữ liệu vào modal
+    document.getElementById('modalBillId').textContent = bill._id;
+    document.getElementById('modalCreatedAt').textContent = new Date(bill.ngayMua).toLocaleDateString();
+    document.getElementById('modalEmployeeID').textContent = bill.nhanVien?.id_NV || 'N/A';
+    document.getElementById('modalEmployeeName').textContent = bill.nhanVien?.tenNhanVien || 'N/A';
+    document.getElementById('modalPaymentMethod').textContent = bill.hinhThucThanhToan === 'TienMat' ? 'Tiền mặt' : 'Thẻ tín dụng';
+    document.getElementById('modalTotalAmount').textContent = bill.tongTien.toLocaleString();
+    document.getElementById('modalReceivedAmount').textContent = bill.tienNhan.toLocaleString();
+    document.getElementById('modalChangeAmount').textContent = bill.tienThua.toLocaleString();
+
+    // Hiển thị danh sách sản phẩm
+    const productList = document.getElementById('modalProductList');
+    productList.innerHTML = ''; // Xóa nội dung cũ
+    bill.sanPhams.forEach((product) => {
+      const listItem = document.createElement('li');
+      listItem.textContent = `${product.sanPham.tenSanPham} ${product.kichCo} - ${product.soLuong} x ${product.gia.toLocaleString()} = ${(product.soLuong * product.gia).toLocaleString()}`;
+      productList.appendChild(listItem);
+    });
+
+    // Cập nhật link download
+    const customerPhone = document.querySelector('.telephone-number').value;
+    const downloadLink = document.getElementById('downloadLink');
+    downloadLink.href = `/customer/history/${customerPhone}/bill/${billId}/pdf`;
+
+    // Hiển thị modal
+    const bootstrapModal = new bootstrap.Modal(document.getElementById('billDetailModal'));
+    bootstrapModal.show();
+  } catch (error) {
+    console.error('Lỗi khi tải chi tiết hóa đơn:', error);
+    alert('Không thể tải chi tiết hóa đơn. Vui lòng thử lại sau!');
+  }
+}
+</script>
+
+<!--Thêm sản phẩm vào giỏ-->
+<script>
+  const productList = document.getElementById('list-product');
+  const selectedProductsList = document.getElementById('selected-products');
+  const itemsInput = document.getElementById('items');
+  const totalAmountEl = document.getElementById('total-amount');
+
+  let selectedProducts = [];
+
+const checkoutBtn = document.getElementById('checkout-btn');
+
+// Thanh toán
+checkoutBtn.addEventListener('click', async () => {
+  let phoneNumber = document.querySelector('.telephone-number').value.trim();
+  const employeeID = document.getElementById('employeeid').value;
+  const selectedPaymentMethod = document.querySelector('input[name="option"]:checked');
+  const itemsInput = document.getElementById('items');
+  const totalAmountEl = document.getElementById('total-amount');
+  const items = JSON.parse(itemsInput.value || '[]');
+
+  // Kiểm tra nếu giỏ hàng rỗng
+  if (items.length === 0) {
+    showModal('Warning', 'Giỏ hàng hiện tại rỗng', '#warning');
+    return;
+  }
+
+  // Kiểm tra nếu phương thức thanh toán chưa được chọn
+  if (!selectedPaymentMethod) {
+    showModal('Warning', 'Vui lòng chọn phương thức thanh toán', '#warning');
+    return;
+  }
+
+  // Kiểm tra số điện thoại rỗng
+  if (!phoneNumber) {
+    phoneNumber = 'UnknowCustomer';
+  }
+
+  const paymentMethod = selectedPaymentMethod.value;
+  const totalAmount = parseFloat(totalAmountEl.textContent || '0');
+
+  // Dữ liệu thanh toán
+  const data = {
+    customerPhone: phoneNumber,
+    employeeID,
+    paymentMethod,
+    items,
+    totalAmount,
+  };
+
+  // Nếu phương thức thanh toán là tiền mặt, kiểm tra số tiền nhận và tiền thối
+  if (paymentMethod === 'TienMat') {
+    const receivedAmount = parseFloat(document.getElementById('received').value);
+    const changeAmount = receivedAmount - totalAmount;
+
+    if (!receivedAmount || isNaN(receivedAmount) || receivedAmount < totalAmount) {
+      showModal('Warning', 'Số tiền nhận không hợp lệ hoặc nhỏ hơn tổng tiền.', '#warning');
+      return;
+    }
+
+    data.receivedAmount = receivedAmount;
+    data.changeAmount = changeAmount;
+  }
+
+  // Gửi yêu cầu thanh toán đến server
+  try {
+    const response = await fetch('/order/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      const downloadLink = document.createElement('a');
+      downloadLink.href = `/customer/history/${phoneNumber}/bill/${result.hoaDonId}/pdf`;
+      downloadLink.click()
+      $('#question').modal('show');
+      return;
+    } else {
+      alert(result.message || 'Thanh toán thất bại. Vui lòng thử lại.');
+    }
+  } catch (error) {
+    console.error('Lỗi trong quá trình thanh toán:', error.message);
+    alert('Đã xảy ra lỗi. Vui lòng thử lại.');
+  }
+});
+
+productList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('add-product')) {
+    const productId = e.target.dataset.id;
+    const productName = e.target.dataset.name;
+    const defaultPrice = parseFloat(e.target.dataset.price);
+    const productImage = e.target.dataset.image; // Lấy thông tin hình ảnh
+
+    // Kiểm tra xem sản phẩm có kích cỡ hay không
+    const sizeSelect = e.target.closest('.product').querySelector('.size-select'); // Tìm select trong cùng thẻ cha
+    const selectedSize = sizeSelect ? sizeSelect.value : 'Default';
+    const sizePrice = sizeSelect
+      ? parseFloat(sizeSelect.options[sizeSelect.selectedIndex].dataset.price)
+      : defaultPrice;
+
+    // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+    let existingProduct = selectedProducts.find(p => p.productId === productId && p.size === selectedSize);
+    if (existingProduct) {
+      existingProduct.quantity++;
+    } else {
+      selectedProducts.push({ 
+        productId, 
+        name: productName, 
+        image: productImage,
+        size: selectedSize, 
+        price: sizePrice, 
+        quantity: 1 
+      });
+    }
+    renderSelectedProducts();
+  }
+});
+function renderSelectedProducts() {
+  selectedProductsList.innerHTML = '';
+  let totalAmount = 0;
+
+  if (selectedProducts.length === 0) {
+    selectedProductsList.innerHTML = '<h4 class="d-flex align-items-end justify-content-center" style="height: 10rem;">Nothing here</h4>'
+    totalAmountEl.textContent = '0';
+    itemsInput.value = '';
+    return;
+  }
+
+  selectedProducts.forEach(product => {
+    const productTotal = product.price * product.quantity;
+    totalAmount += productTotal;
+
+    // Kiểm tra trạng thái hiển thị của .input
+    const inputVisibility = processActive ? 'none' : 'block'; // process2Active: biến kiểm soát trạng thái process
+
+    const cartProduct = document.createElement('div');
+    cartProduct.classList.add('cart-product', 'mt-2', 'px-2');
+    cartProduct.innerHTML = `
+      <div class="detail d-flex align-items-center py-2">
+          <div class="img-cart-container">
+              <img class="img-cart" src="${product.image}" alt="${product.name}">
+              <button type="button" class="close remove-product" data-id="${product.productId}" data-size="${product.size}" style="display: ${inputVisibility};">&times;</button>
+          </div>
+          <div class="ml-3">
+              <p>
+                  ${product.name} ${product.size !== 'Default' ? `(${product.size})` : ''}
+              </p>
+              <p>
+                  ${product.price}
+              </p>
+          </div>
+      </div>
+      <div class="input" style="display: ${inputVisibility};">
+          <button type="button" class="minus decrease-quantity" data-id="${product.productId}" data-size="${product.size}">-</button>
+          <span>${product.quantity}</span>
+          <button type="button" class="plus increase-quantity" data-id="${product.productId}" data-size="${product.size}">+</button>
+      </div>
+      <div class="quantity-total" style="display: ${processActive ? 'block' : 'none'};">
+        <p>${product.price} <span class="text-danger"> x${product.quantity}</span><br>= ${productTotal}</p>
+      </div>
+    `;
+    selectedProductsList.appendChild(cartProduct);
+  });
+  totalAmountEl.textContent = totalAmount;
+ /* let temp = totalAmount; 
+  if(document.querySelector('.rank').value == 'Bạc'){
+    temp = totalAmount*0.95;
+  } else if(document.querySelector('.rank').value == 'Vàng'){
+    temp = totalAmount*0.9;
+  } else if(document.querySelector('.rank').value == 'Kim cương'){
+    temp = totalAmount*0.85;
+  } else {temp = totalAmount; }
+  document.getElementById('final-payment').textContent = temp;*/
+  updateChangeAmount();
+  itemsInput.value = JSON.stringify(selectedProducts);
+
+}
+
+
+  selectedProductsList.addEventListener('click', (e) => {
+    const productId = e.target.dataset.id;
+    const productSize = e.target.dataset.size;
+
+    if (e.target.classList.contains('increase-quantity')) {
+      const product = selectedProducts.find(p => p.productId === productId && p.size === productSize);
+      if (product) product.quantity++;
+    }
+
+    if (e.target.classList.contains('decrease-quantity')) {
+      const product = selectedProducts.find(p => p.productId === productId && p.size === productSize);
+      if (product && product.quantity > 1) {
+        product.quantity--;
+      } else {
+        selectedProducts = selectedProducts.filter(p => p.productId !== productId || p.size !== productSize);
+      }
+    }
+
+    if (e.target.classList.contains('remove-product')) {
+      selectedProducts = selectedProducts.filter(p => p.productId !== productId || p.size !== productSize);
+    }
+    renderSelectedProducts();
+  });
+
+  function clearCart(){
+    selectedProducts.length = 0;
+    renderSelectedProducts();
+  }
+</script>
+
+<!--tính tiền-->
+<script>
+// Hàm để tính tiền thừa sau khi thêm tiền vào ô "received"
+function updateChangeAmount() {
+  const totalAmount = parseFloat(document.getElementById('total-amount').textContent);
+  const receivedAmount = parseFloat(document.getElementById('received').value);
+
+  if (!isNaN(receivedAmount) && receivedAmount >= totalAmount) {
+    const change = receivedAmount - totalAmount;
+    document.getElementById('change').value = change; // Hiển thị tiền thừa
+  } else {
+    document.getElementById('change').value = 'Không hợp lệ';
+  }
+}
+
+// Hàm xử lý sự kiện khi nhấn nút
+function addValue(value) {
+  const receivedInput = document.getElementById('received');
+  let currentReceived = parseFloat(receivedInput.value) || 0; // Lấy giá trị hiện tại, nếu trống thì mặc định là 0
+  receivedInput.value = (currentReceived + value); // Cộng dồn và cập nhật lại giá trị
+  
+  // Sau khi thay đổi giá trị của ô "received", cập nhật lại tiền thừa
+  updateChangeAmount();
+}
+
+// trả đủ
+function setReceivedToTotal() {
+  const totalAmount = parseFloat(document.getElementById('total-amount').textContent); // Lấy tổng tiền
+  document.getElementById('received').value = totalAmount; // Cập nhật giá trị ô "received" bằng tổng tiền
+  updateChangeAmount(); // Cập nhật lại tiền thừa
+}
+
+// Sự kiện "input" cho ô "received" để tự động tính tiền thừa
+document.getElementById('received').addEventListener('input', updateChangeAmount);
+</script>

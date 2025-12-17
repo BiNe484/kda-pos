@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>{{title}} - KDA Web</title>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <section class="h-100"></section>
+		<div class="container h-100">
+			<div class="row justify-content-sm-center h-100">
+				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+					<div class="text-center my-5">
+						<img src="images/login-image.jpg" alt="logo" width="100">
+					</div>
+					<div class="card shadow-lg">
+						<div class="card-body p-5">
+							<h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
+							<form method="POST">
+								<div class="mb-3">
+									<label class="mb-2 text-muted" for="uname">Username</label>
+									<input id="uname" type="text" class="form-control" placeholder="Enter User" name="uname" value="{{us}}" required autofocus>
+								</div>
+
+								<div class="mb-3">
+									<div class="mb-2 w-100">
+										<label class="text-muted" for="password">Password</label>
+									</div>
+									<input id="password" type="password" class="form-control" placeholder="Enter Password" name="psw" required>
+								</div>
+
+								<div class="d-flex align-items-center">
+									<button type="submit" class="btn btn-primary ms-auto">
+										Login
+									</button>
+								</div>
+                                    {{#if msg}}
+                                    <div class="alert alert-danger mt-3" role="alert">
+                                        {{msg}}
+                                    </div>
+                                    {{/if}}
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal nhập mã xác thực -->
+		<div id="verificationModal" class="modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Xác thực tài khoản</h5>
+				</div>
+				<div class="modal-body">
+					<p><em>*Lưu ý mã chỉ có hiệu lực trong 1 phút kể từ lúc được gửi mã</em></p>
+					<p>Nhập mã xác thực đã được gửi tới email của bạn.</p>
+					<input type="text" id="verificationCodeInput" class="form-control" placeholder="Nhập mã xác thực">
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="submitCode" class="btn btn-primary">Xác nhận</button>
+					<button type="button" id="resendCode" class="btn btn-secondary">Gửi lại mã</button>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal đổi mật khẩu -->
+		<div id="changePasswordModal" class="modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Đổi mật khẩu</h5>
+					</div>
+					<div class="modal-body">
+						<p>Vui lòng đổi mật khẩu để bảo mật tài khoản của bạn.</p>
+						<form id="changePasswordForm">
+							<div class="mb-3">
+								<label for="newPassword" class="form-label">Mật khẩu mới</label>
+								<input type="password" id="newPassword" class="form-control" required>
+							</div>
+							<div class="mb-3">
+								<label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
+								<input type="password" id="confirmPassword" class="form-control" required>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="savePasswordBtn" class="btn btn-primary">Lưu</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const showVerificationModal = {{showModal}}; // Set from backend for verification modal
+			const shouldRedirect = {{shouldRedirect}}; // Set from backend for password reset modal
+			
+			// Show verification modal if required
+			if (showVerificationModal) {
+				const verificationModal = new bootstrap.Modal(document.getElementById('verificationModal'));
+				verificationModal.show();
+			}
+
+			// Show password change modal if needed
+			if (shouldRedirect) {
+				const changePasswordModal = new bootstrap.Modal(document.getElementById('changePasswordModal'));
+				changePasswordModal.show();
+			}
+
+			// Handle verification code submission
+			document.getElementById("submitCode").addEventListener("click", function () {
+				const inputCode = document.getElementById("verificationCodeInput").value;
+				fetch("login/verify-code", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ code: inputCode }),
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						const changePasswordModal = new bootstrap.Modal(document.getElementById('changePasswordModal'));
+						alert("Xác thực thành công, vui lòng đổi mật khẩu để tiếp tục");
+						changePasswordModal.show();
+					} else {
+						alert("Mã xác thực không đúng hoặc đã hết hạn. Vui lòng thử lại.");
+					}
+				});
+			});
+
+			// Handle resend verification code
+			document.getElementById("resendCode").addEventListener("click", function () {
+				fetch("/login/resend-code", { method: "POST" })
+					.then(response => response.json())
+					.then(data => alert("Mã xác thực mới đã được gửi!"));
+			});
+
+			// Handle saving new password
+			document.getElementById("savePasswordBtn").addEventListener("click", function () {
+				const newPassword = document.getElementById("newPassword").value;
+				const confirmPassword = document.getElementById("confirmPassword").value;
+				const uname = document.getElementById("uname").value;
+
+				if (newPassword !== confirmPassword) {
+					alert("Mật khẩu xác nhận không khớp!");
+					return;
+				}
+
+				fetch("users/change-password", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						newPassword: newPassword,
+						uname: uname
+					}),
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						alert("Mật khẩu đã được thay đổi thành công!");
+						window.location.href = "/"; // Redirect after successful password change
+					} else {
+						alert("Đổi mật khẩu thất bại. Vui lòng thử lại.");
+					}
+				})
+				.catch(error => console.error("Error changing password:", error));
+			});
+		});
+	</script>
+
+</body>
+</html>
+

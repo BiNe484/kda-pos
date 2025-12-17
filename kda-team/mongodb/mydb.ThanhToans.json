@@ -1,0 +1,15 @@
+[{
+  "_id": {
+    "$oid": "6702ae8948d317f2b42ef373"
+  },
+  "thanhToan": {
+    "id_DH": "DH001",
+    "sdt": "0123456789",
+    "khuyenMai": {
+      "MaKhuyenMai": "PROMO10",
+      "SoTienGiam": 10000
+    },
+    "diemTichLuy": 1000,
+    "hinhThucThanhToan": "TienMat"
+  }
+}]

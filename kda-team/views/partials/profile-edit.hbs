@@ -1,0 +1,154 @@
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">Chỉnh Sửa Thông Tin Cá Nhân</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form chỉnh sửa thông tin -->
+                <form id="editProfileForm" enctype="multipart/form-data">
+                    <div class="row">
+                        <!-- Thay ảnh đại diện -->
+                        <div class="form-group">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <!-- Hiển thị ảnh nhân viên hiện tại -->
+                                    <div class="avatar-container">
+                                        <img id="currentHinhNhanVien" src="{{adminInfo.hinhNhanVien}}" alt="Ảnh Nhân viên hiện tại" class="img-fluid rounded-circle border" style="width: 150px; height: 150px; object-fit: cover;" />
+                                    </div>
+                                    <!-- Thêm nút xóa ảnh nếu muốn -->
+                                    
+                                </div>
+                                <div>
+                                    <!-- Tên file ảnh (readonly) -->
+                                    <input type="text" id="editTenHinhNhanVien" class="form-control mb-2" readonly />
+                                    <!-- Input để thay đổi ảnh -->
+                                    <input type="file" id="editHinhNhanVien" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label>Họ và Tên</label>
+                            <input id="editTenNhanVien" type="text" class="form-control" placeholder="Nhập tên"
+                                value="{{adminInfo.tenNhanVien}}" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Số Điện Thoại</label>
+                            <input id="editSdt" type="text" class="form-control" placeholder="Nhập số điện thoại"
+                                value="{{adminInfo.sdt}}" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Email</label>
+                            <input id="editEmail" type="email" class="form-control" placeholder="Nhập email"
+                                value="{{adminInfo.email}}" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Địa Chỉ</label>
+                            <input id="editDiaChi" type="text" class="form-control" placeholder="Nhập địa chỉ"
+                                value="{{adminInfo.diaChi}}" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>CCCD</label>
+                                                        <input id="editCccd" type="text" class="form-control" placeholder="Nhập CCCD"
+                                value="{{adminInfo.cccd}}" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" id="saveProfileButton" class="btn btn-primary">Lưu Thay Đổi</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lắng nghe sự kiện thay đổi ảnh
+        document.getElementById('editHinhNhanVien').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Cập nhật ảnh preview
+                    document.getElementById('currentHinhNhanVien').src = e.target.result;
+                    // Cập nhật tên file
+                    document.getElementById('editTenHinhNhanVien').value = file.name;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+       
+
+        // Sự kiện mở modal sửa thông tin nhân viên
+        document.querySelector('[data-bs-target="#editProfileModal"]').addEventListener('click', function () {
+            const userId = this.getAttribute('data-id'); // Lấy ID từ thuộc tính data-id
+            fetchAndFillForm(userId);
+        });
+
+        // Hàm lấy thông tin và điền vào form
+        function fetchAndFillForm(userId) {
+            fetch(`/users/edit/${userId}`)
+                .then(response => response.json())
+                .then(nhanVien => {
+                    // Điền thông tin vào form
+                    document.getElementById('editTenNhanVien').value = nhanVien.tenNhanVien;
+                    document.getElementById('editCccd').value = nhanVien.cccd;
+                    document.getElementById('editSdt').value = nhanVien.sdt;
+                    document.getElementById('editDiaChi').value = nhanVien.diaChi;
+                    document.getElementById('editEmail').value = nhanVien.email;
+                    
+                    const currentImage = document.getElementById('currentHinhNhanVien');
+                    const imageNameInput = document.getElementById('editTenHinhNhanVien');
+                    if (nhanVien.hinhNhanVien) {
+                        currentImage.src = `/${nhanVien.hinhNhanVien}`; // Đường dẫn ảnh hiện tại
+                        imageNameInput.value = nhanVien.hinhNhanVien; // Hiển thị tên file
+                    } else {
+                        currentImage.src = '/images/avatar/avatar-default.jpg'; // Placeholder nếu không có ảnh
+                        imageNameInput.value = 'Ảnh mặc định';
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi khi lấy chi tiết thông tin:', error);
+                   
+                });
+        }
+
+        // Sự kiện lưu thông tin khi nhấn nút "Lưu Thay Đổi"
+        document.getElementById('saveProfileButton').addEventListener('click', function () {
+            const formData = new FormData();
+            formData.append('tenNhanVien', document.getElementById('editTenNhanVien').value);
+            formData.append('hinhNhanVien', document.getElementById('editHinhNhanVien').files[0]);
+            formData.append('cccd', document.getElementById('editCccd').value);
+            formData.append('diaChi', document.getElementById('editDiaChi').value);
+            formData.append('email', document.getElementById('editEmail').value);
+            formData.append('sdt', document.getElementById('editSdt').value);
+
+            const userId = document.querySelector('[data-bs-target="#editProfileModal"]').getAttribute('data-id');
+
+            // Gửi dữ liệu lên server
+            fetch(`/users/edit/${userId}`, {
+                method: 'PUT',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Lỗi cập nhật thông tin');
+                    return response.json();
+                })
+                .then(data => {
+                    alert('Cập nhật thành công!');
+                    location.reload(); // Tải lại trang để cập nhật thông tin
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    alert('Có lỗi xảy ra');
+                });
+        });
+    });
+</script>
+

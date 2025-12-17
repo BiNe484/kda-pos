@@ -1,0 +1,92 @@
+[
+  {
+    "_id": { "$oid": "6702ae2048d317f2b42ef371" },
+    "hoTen": "Nguyen Van A",
+    "sdt": "0987654321",
+    "diemTichLuy": 500000,
+    "hangThanhVien": "Bạc",
+    "giaoDich": [{ "$oid": "67481cc02b254d204aa5e94e" }],
+    "ngayThem": { "$date": "2024-11-01T10:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "6702ae2048d317f2b42ef372" },
+    "hoTen": "Tran Thi B",
+    "sdt": "0123456789",
+    "diemTichLuy": 1500000,
+    "hangThanhVien": "Vàng",
+    "giaoDich": [{ "$oid": "67481cc02b254d204aa5e94f" }],
+    "ngayThem": { "$date": "2024-11-05T11:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "6702ae2048d317f2b42ef373" },
+    "hoTen": "Le Thi C",
+    "sdt": "0912345678",
+    "diemTichLuy": 12000000,
+    "hangThanhVien": "Kim cương",
+    "giaoDich": [{ "$oid": "67481cc02b254d204aa5e950" }],
+    "ngayThem": { "$date": "2024-11-10T09:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "6702ae2048d317f2b42ef374" },
+    "hoTen": "Pham Minh D",
+    "sdt": "0901234567",
+    "diemTichLuy": 120000,
+    "hangThanhVien": "Bạc",
+    "giaoDich": [{ "$oid": "67481cc02b254d204aa5e953" }],
+    "ngayThem": { "$date": "2024-11-15T09:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "6702ae2048d317f2b42ef375" },
+    "hoTen": "Nguyen Thi E",
+    "sdt": "0934567890",
+    "diemTichLuy": 800000,
+    "hangThanhVien": "Bạc",
+    "giaoDich": [{ "$oid": "67481cc02b254d204aa5e954" }],
+    "ngayThem": { "$date": "2024-11-16T09:30:00Z" }
+  },
+  {
+    "_id": { "$oid": "6702ae2048d317f2b42ef376" },
+    "hoTen": "Le Van F",
+    "sdt": "0989876543",
+    "diemTichLuy": 2000000,
+    "hangThanhVien": "Vàng",
+    "giaoDich": [{ "$oid": "67481cc02b254d204aa5e955" }],
+    "ngayThem": { "$date": "2024-11-17T10:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "6702ae2048d317f2b42ef377" },
+    "hoTen": "Tran Thi G",
+    "sdt": "0976543210",
+    "diemTichLuy": 15000000,
+    "hangThanhVien": "Kim cương",
+    "giaoDich": [{ "$oid": "67481cc02b254d204aa5e956" }],
+    "ngayThem": { "$date": "2024-11-18T10:30:00Z" }
+  },
+  {
+    "_id": { "$oid": "6702ae2048d317f2b42ef378" },
+    "hoTen": "Ngo Thi H",
+    "sdt": "0923456789",
+    "diemTichLuy": 500000,
+    "hangThanhVien": "Bạc",
+    "giaoDich": [{ "$oid": "67481cc02b254d204aa5e957" }],
+    "ngayThem": { "$date": "2024-11-19T11:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "6702ae2048d317f2b42ef379" },
+    "hoTen": "Vu Van I",
+    "sdt": "0932123456",
+    "diemTichLuy": 10000,
+    "hangThanhVien": "Đồng",
+    "giaoDich": [{ "$oid": "67481cc02b254d204aa5e958" }],
+    "ngayThem": { "$date": "2024-11-20T11:30:00Z" }
+  },
+  {
+    "_id": { "$oid": "6702ae2048d317f2b42ef380" },
+    "hoTen": "Pham Thi J",
+    "sdt": "0909090909",
+    "diemTichLuy": 300000,
+    "hangThanhVien": "Bạc",
+    "giaoDich": [{ "$oid": "67481cc02b254d204aa5e959" }],
+    "ngayThem": { "$date": "2024-11-21T12:00:00Z" }
+  }
+]

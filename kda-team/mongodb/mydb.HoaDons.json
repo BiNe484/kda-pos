@@ -1,0 +1,224 @@
+[
+  {
+    "_id": { "$oid": "67481cc02b254d204aa5e957" },
+    "khachHang": { "$oid": "6702ae2048d317f2b42ef378" },
+    "nhanVien": { "$oid": "6702a22b48d317f2b42ef35c" },
+    "sanPhams": [
+      {
+        "sanPham": { "$oid": "6724de909149540a1a78785c" },
+        "kichCo": "Default",
+        "gia": 50000,
+        "soLuong": 2
+      }
+    ],
+    "tongTien": 100000,
+    "hinhThucThanhToan": "TienMat",
+    "tienNhan": 150000,
+    "tienThua": 50000,
+    "ngayMua": { "$date": "2024-01-15T08:30:00Z" }
+  },
+  {
+    "_id": { "$oid": "67481cc02b254d204aa5e958" },
+    "khachHang": { "$oid": "6702ae2048d317f2b42ef379" },
+    "nhanVien": { "$oid": "6702a22b48d317f2b42ef35c" },
+    "sanPhams": [
+      {
+        "sanPham": { "$oid": "6724e14d9149540a1a78785d" },
+        "kichCo": "L",
+        "gia": 40000,
+        "soLuong": 3
+      }
+    ],
+    "tongTien": 120000,
+    "hinhThucThanhToan": "TheTinDung",
+    "tienNhan": 0,
+    "tienThua": 0,
+    "ngayMua": { "$date": "2024-03-20T10:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "67481cc02b254d204aa5e959" },
+    "khachHang": { "$oid": "6702ae2048d317f2b42ef37a" },
+    "nhanVien": { "$oid": "6707c98d5c35fcaa87062bdb" },
+    "sanPhams": [
+      {
+        "sanPham": { "$oid": "6724dd399149540a1a78785b" },
+        "kichCo": "M",
+        "gia": 15000,
+        "soLuong": 4
+      }
+    ],
+    "tongTien": 60000,
+    "hinhThucThanhToan": "TienMat",
+    "tienNhan": 100000,
+    "tienThua": 40000,
+    "ngayMua": { "$date": "2024-05-10T09:30:00Z" }
+  },
+  {
+    "_id": { "$oid": "67481cc02b254d204aa5e960" },
+    "khachHang": { "$oid": "6702ae2048d317f2b42ef37b" },
+    "nhanVien": { "$oid": "6702a1db48d317f2b42ef359" },
+    "sanPhams": [
+      {
+        "sanPham": { "$oid": "6724de909149540a1a78785c" },
+        "kichCo": "Default",
+        "gia": 200000,
+        "soLuong": 1
+      }
+    ],
+    "tongTien": 200000,
+    "hinhThucThanhToan": "TheTinDung",
+    "tienNhan": 0,
+    "tienThua": 0,
+    "ngayMua": { "$date": "2024-08-24T15:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "67481cc02b254d204aa5e961" },
+    "khachHang": { "$oid": "6702ae2048d317f2b42ef37c" },
+    "nhanVien": { "$oid": "6707c98d5c35fcaa87062bdb" },
+    "sanPhams": [
+      {
+        "sanPham": { "$oid": "6724e14d9149540a1a78785d" },
+        "kichCo": "L",
+        "gia": 30000,
+        "soLuong": 5
+      }
+    ],
+    "tongTien": 150000,
+    "hinhThucThanhToan": "TienMat",
+    "tienNhan": 200000,
+    "tienThua": 50000,
+    "ngayMua": { "$date": "2024-10-18T13:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "67481cc02b254d204aa5e94e" },
+    "khachHang": { "$oid": "6702ae2048d317f2b42ef371" },
+    "nhanVien": { "$oid": "6702a22b48d317f2b42ef35b" },
+    "sanPhams": [
+      {
+        "sanPham": { "$oid": "6724de909149540a1a78785c" },
+        "kichCo": "Default",
+        "gia": 50000,
+        "soLuong": 2
+      }
+    ],
+    "tongTien": 100000,
+    "hinhThucThanhToan": "TienMat",
+    "tienNhan": 200000,
+    "tienThua": 100000,
+    "ngayMua": { "$date": "2024-11-15T08:30:00Z" }
+  },
+  {
+    "_id": { "$oid": "67481cc02b254d204aa5e94f" },
+    "khachHang": { "$oid": "6702ae2048d317f2b42ef372" },
+    "nhanVien": { "$oid": "6702a22b48d317f2b42ef35b" },
+    "sanPhams": [
+      {
+        "sanPham": { "$oid": "6724de909149540a1a78785c" },
+        "kichCo": "Default",
+        "gia": 30000,
+        "soLuong": 3
+      },
+      {
+        "sanPham": { "$oid": "6724e14d9149540a1a78785d" },
+        "kichCo": "L",
+        "gia": 50000,
+        "soLuong": 1
+      }
+    ],
+    "tongTien": 140000,
+    "hinhThucThanhToan": "TheTinDung",
+    "tienNhan": 0,
+    "tienThua": 0,
+    "ngayMua": { "$date": "2024-11-18T10:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "67481cc02b254d204aa5e950" },
+    "khachHang": { "$oid": "6702ae2048d317f2b42ef373" },
+    "nhanVien": { "$oid": "6702a22b48d317f2b42ef35b" },
+    "sanPhams": [
+      {
+        "sanPham": { "$oid": "6724dd399149540a1a78785b" },
+        "kichCo": "M",
+        "gia": 15000,
+        "soLuong": 5
+      }
+    ],
+    "tongTien": 75000,
+    "hinhThucThanhToan": "TienMat",
+    "tienNhan": 100000,
+    "tienThua": 25000,
+    "ngayMua": { "$date": "2024-11-20T09:30:00Z" }
+  },
+  {
+    "_id": { "$oid": "67481cc02b254d204aa5e953" },
+    "khachHang": { "$oid": "6702ae2048d317f2b42ef374" },
+    "nhanVien": { "$oid": "6707c98d5c35fcaa87062bdb" },
+    "sanPhams": [
+      {
+        "sanPham": { "$oid": "6724de909149540a1a78785c" },
+        "kichCo": "Default",
+        "gia": 15000,
+        "soLuong": 2
+      }
+    ],
+    "tongTien": 30000,
+    "hinhThucThanhToan": "TienMat",
+    "tienNhan": 50000,
+    "tienThua": 20000,
+    "ngayMua": { "$date": "2024-11-21T12:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "67481cc02b254d204aa5e954" },
+    "khachHang": { "$oid": "6702ae2048d317f2b42ef375" },
+    "nhanVien": { "$oid": "6707c98d5c35fcaa87062bdb" },
+    "sanPhams": [
+      {
+        "sanPham": { "$oid": "6724e14d9149540a1a78785d" },
+        "kichCo": "M",
+        "gia": 40000,
+        "soLuong": 4
+      }
+    ],
+    "tongTien": 160000,
+    "hinhThucThanhToan": "TheTinDung",
+    "tienNhan": 0,
+    "tienThua": 0,
+    "ngayMua": { "$date": "2024-11-22T13:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "67481cc02b254d204aa5e955" },
+    "khachHang": { "$oid": "6702ae2048d317f2b42ef376" },
+    "nhanVien": { "$oid": "6707c98d5c35fcaa87062bdb" },
+    "sanPhams": [
+      {
+        "sanPham": { "$oid": "6724dd399149540a1a78785b" },
+        "kichCo": "L",
+        "gia": 10000,
+        "soLuong": 5
+      }
+    ],
+    "tongTien": 50000,
+    "hinhThucThanhToan": "TienMat",
+    "tienNhan": 100000,
+    "tienThua": 50000,
+    "ngayMua": { "$date": "2024-11-23T14:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "67481cc02b254d204aa5e956" },
+    "khachHang": { "$oid": "6702ae2048d317f2b42ef377" },
+    "nhanVien": { "$oid": "6702a1db48d317f2b42ef359" },
+    "sanPhams": [
+      {
+        "sanPham": { "$oid": "6724de909149540a1a78785c" },
+        "kichCo": "Default",
+        "gia": 200000,
+        "soLuong": 1
+      }
+    ],
+    "tongTien": 200000,
+    "hinhThucThanhToan": "TienMat",
+    "tienNhan": 250000,
+    "tienThua": 50000,
+    "ngayMua": { "$date": "2024-11-24T15:00:00Z" }
+  }
+]

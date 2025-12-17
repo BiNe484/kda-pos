@@ -1,0 +1,245 @@
+<!-- Modal Sửa Sản Phẩm -->
+<div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title">
+          <span class="fw-mediumbold">Sửa</span>
+          <span class="fw-light">Sản Phẩm</span>
+        </h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editProductForm">
+          <!-- Tên sản phẩm -->
+          <div class="form-group">
+            <label>Tên Sản Phẩm</label>
+            <input type="text" id="editTenSanPham" class="form-control" />
+          </div>
+          <!-- Loại sản phẩm -->
+          <div class="form-group">
+            <label>Loại</label>
+            <select id="editLoaiSanPham" class="form-control"></select>
+          </div>
+          <!-- Giá bán -->
+          <div class="form-group">
+            <label>Giá Bán</label>
+            <input type="number" id="editGiaBan" class="form-control" />
+          </div>
+          <!-- Số lượng tồn -->
+          <div class="form-group">
+            <label>Số Lượng Tồn</label>
+            <input type="number" id="editSoLuongTon" class="form-control" />
+          </div>
+            <!-- Hình sản phẩm -->
+            <div class="form-group">
+                <label>Hình Sản Phẩm</label>
+                <div class="d-flex align-items-center">
+                    <!-- Hiển thị ảnh sản phẩm hiện tại -->
+                    <div>
+                    <img id="currentHinhSanPham" 
+                        src="" 
+                        alt="Ảnh sản phẩm hiện tại" 
+                        style="max-width: 150px; max-height: 150px; margin-right: 20px; border: 1px solid #ccc;" />
+                    </div>
+                    <div>
+                    <!-- Tên file ảnh (readonly) -->
+                    <input type="text" id="editTenHinhSanPham" class="form-control mb-2" readonly />
+                    <!-- Input để thay đổi ảnh -->
+                    <input type="file" id="editHinhSanPham" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+          <!-- Size -->
+          <div class="form-group">
+            <label>Size</label>
+            <div id="editSizeContainer"></div>
+            <button type="button" class="btn btn-secondary btn-sm" id="editAddSizeButton">Thêm Size</button>
+          </div>
+          <!-- Nguyên liệu chế biến -->
+          <div class="form-group">
+            <label>Nguyên Liệu Chế Biến</label>
+            <div id="editNguyenLieuContainer"></div>
+            <button type="button" class="btn btn-secondary btn-sm" id="editAddIngredientButton">Thêm Nguyên Liệu</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-primary" id="saveEditProductButton">Cập nhật</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('editHinhSanPham').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Cập nhật ảnh preview
+                    document.getElementById('currentHinhSanPham').src = e.target.result;
+                    // Cập nhật tên file
+                    document.getElementById('editTenHinhSanPham').value = file.name;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Sự kiện mở modal sửa
+        $('#product-table').on('click', '.btn-edit', function () {
+            const productId = $(this).data('id');
+            
+            // Fetch thông tin chi tiết sản phẩm
+            fetch(`/api/products/${productId}`)
+                .then(response => response.json())
+                .then(product => {
+                    $('#editTenSanPham').val(product.tenSanPham);
+                    $('#editLoaiSanPham').html(`
+                        <option value="Bánh" ${product.loaiSanPham === "Bánh" ? 'selected' : ''}>Bánh</option>
+                        <option value="Nước uống" ${product.loaiSanPham === "Nước uống" ? 'selected' : ''}>Nước uống</option>
+                    `);
+                    $('#editGiaBan').val(product.giaBan);
+                    $('#editSoLuongTon').val(product.soLuongTon);
+                    const currentImage = document.getElementById('currentHinhSanPham');
+                    const imageNameInput = document.getElementById('editTenHinhSanPham');
+                    if (product.hinhSanPham) {
+                        currentImage.src = `/${product.hinhSanPham}`; // Đường dẫn ảnh hiện tại
+                        imageNameInput.value = product.hinhSanPham; // Hiển thị tên file
+                    } else {
+                        currentImage.src = 'https://via.placeholder.com/150'; // Placeholder nếu không có ảnh
+                        imageNameInput.value = 'Không có ảnh';
+                    }
+                    // Load các size
+                    const sizes = Array.isArray(product.size) ? product.size : [];
+                    const sizeHtml = sizes.map(size => `
+                        <div class="d-flex mb-2 size-item">
+                            <input type="text" class="form-control mr-2" value="${size.kichCo}" name="kichCo[]" />
+                            <input type="number" class="form-control mr-2" value="${size.gia}" name="gia[]" />
+                            <button type="button" class="btn btn-danger btn-sm remove-size-button">Xóa</button>
+                        </div>
+                    `).join('');
+                    
+                    $('#editSizeContainer').html(sizeHtml || '<p>Không có size nào.</p>');
+                    if ($('#editSizeContainer .size-item').length <= 1) {
+                        $('#editSizeContainer .remove-size-button').prop('disabled', true);
+                    } else {
+                        $('#editSizeContainer .remove-size-button').prop('disabled', false);
+                    }
+                    // Load các nguyên liệu
+                    const nguyenLieu = Array.isArray(product.nguyenLieuCheBien) ? product.nguyenLieuCheBien : [];
+                    const ingredientHtml = nguyenLieu.map(ingredient => `
+                        <div class="d-flex mb-2">
+                            <select class="form-control mr-2 nguyenLieuSelect" name="tenNguyenLieu[]">
+                                <option value="${ingredient.id_NL}" selected>${ingredient.tenNguyenLieu}</option>
+                            </select>
+                            <input type="number" class="form-control mr-2" value="${ingredient.dinhLuong}" name="dinhLuong[]" />
+                            <input type="text" class="form-control mr-2" value="${ingredient.donVi}" name="donVi[]" />
+                            <button type="button" class="btn btn-danger btn-sm remove-ingredient-button">Xóa</button>
+                        </div>
+                    `).join('');
+                    $('#editNguyenLieuContainer').html(ingredientHtml || '<p>Không có nguyên liệu nào.</p>');
+                    if ($('#editNguyenLieuContainer .ingredient-item').length <= 1) {
+                        $('#editNguyenLieuContainer .remove-ingredient-button').prop('disabled', true);
+                    } else {
+                        $('#editNguyenLieuContainer .remove-ingredient-button').prop('disabled', false);
+                    }
+                    // Xử lý xóa size hoặc nguyên liệu
+                    $('#editSizeContainer').on('click', '.remove-size-button', function () {
+                      $(this).closest('.size-item').remove();
+                      
+                      // Kiểm tra nếu size còn lại ít hơn hoặc bằng 1, nếu có thì disable nút xóa
+                      if ($('#editSizeContainer .size-item').length <= 1) {
+                          $('#editSizeContainer .remove-size-button').prop('disabled', true);
+                      } else {
+                          $('#editSizeContainer .remove-size-button').prop('disabled', false);
+                      }
+                    });
+
+
+                    $('#editNguyenLieuContainer').on('click', '.remove-ingredient-button', function () {
+                        $(this).closest('.ingredient-item').remove();
+                        // Kiểm tra nếu nguyên liệu còn lại ít hơn hoặc bằng 1
+                        if ($('#editNguyenLieuContainer .ingredient-item').length <= 1) {
+                            $('#editNguyenLieuContainer .remove-ingredient-button').prop('disabled', true);
+                        } else {
+                            $('#editNguyenLieuContainer .remove-ingredient-button').prop('disabled', false);
+                        }
+                    });
+                    // Hiển thị modal
+                    $('#editProductModal').modal('show');
+                })
+                .catch(error => {
+                    console.error('Lỗi khi lấy chi tiết sản phẩm:', error);
+                    alert('Đã xảy ra lỗi, vui lòng thử lại!');
+                });
+
+            // Xử lý cập nhật sản phẩm
+            $('#saveEditProductButton').off('click').on('click', function () {
+                const formData = new FormData();
+
+                // Thêm dữ liệu vào FormData
+                formData.append('tenSanPham', $('#editTenSanPham').val());
+                formData.append('hinhSanPham', document.getElementById('editHinhSanPham').files[0]);
+                formData.append('loaiSanPham', $('#editLoaiSanPham').val());
+                formData.append('giaBan', parseFloat($('#editGiaBan').val()));
+                formData.append('soLuongTon', parseInt($('#editSoLuongTon').val(), 10));
+
+                // Thêm size
+                $('#editSizeContainer .d-flex').each(function () {
+                    const kichCo = $(this).find('input[name="kichCo[]"]').val();
+                    const gia = $(this).find('input[name="gia[]"]').val();
+                    if (kichCo && gia) {
+                        formData.append('size[]', JSON.stringify({ kichCo, gia: parseFloat(gia) }));
+                    }
+                });
+
+                // Thêm nguyên liệu
+                $('#editNguyenLieuContainer .d-flex').each(function () {
+                    const id_NL = $(this).find('select[name="tenNguyenLieu[]"]').val();
+                    const tenNguyenLieu = $(this).find('select[name="tenNguyenLieu[]"]').text();
+                    const dinhLuong = $(this).find('input[name="dinhLuong[]"]').val();
+                    const donVi = $(this).find('input[name="donVi[]"]').val();
+                    if (id_NL && dinhLuong && donVi) {
+                        formData.append('nguyenLieu[]', JSON.stringify({ id_NL, tenNguyenLieu, dinhLuong: parseFloat(dinhLuong), donVi }));
+                    }
+                });
+                // Kiểm tra xem đã có ít nhất một size và nguyên liệu chưa
+                if (formData.has('size[]') && formData.getAll('size[]').length > 0) {
+                    // Kiểm tra nguyên liệu
+                    if (formData.has('nguyenLieu[]') && formData.getAll('nguyenLieu[]').length > 0) {
+                        // Gửi dữ liệu lên server
+                    } else {
+                        alert('Cần có ít nhất một nguyên liệu!');
+                        return;
+                    }
+                } else {
+                    alert('Cần có ít nhất một size');
+                    return;
+                }
+
+                // Gửi dữ liệu lên server
+                fetch(`/admin/products/edit/${productId}`, {
+                    method: 'PUT',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Lỗi cập nhật sản phẩm');
+                    return response.json();
+                })
+                .then(data => {
+                    alert('Cập nhật thành công!');
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    alert('Có lỗi xảy ra');
+                });
+            });
+        });
+    });
+</script>

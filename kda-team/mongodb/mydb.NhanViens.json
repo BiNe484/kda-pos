@@ -1,0 +1,54 @@
+[{
+  "_id": {
+    "$oid": "6702a1db48d317f2b42ef359"
+  },
+  "id_NV": "NV001",
+  "cccd": "123456789",
+  "email": "nguyenvana@email.com",
+  "role": "Quản lý",
+  "active": true,
+  "diaChi": "123 Đường ABC, TP. Hồ Chí Minh",
+  "loaiNhanVien": "Full-time",
+  "sdt": "0123456789",
+  "tenNhanVien": "Nguyen Van A",
+  "username": "nguyenvana",
+  "password": "$2b$10$IqPbYjnpVms1MHy6mz6E/Oc5Mf8nCutB5MG9dr3zqIIJTW59WCGne",
+  "hinhNhanVien": "images/avatar/NguyenVanA.png",
+  "khoa": false
+},
+{
+  "_id": {
+    "$oid": "6702a22b48d317f2b42ef35b"
+  },
+  "id_NV": "NV002",
+  "cccd": "123454212659",
+  "email": "nguyenvanb@email.com",
+  "role": "Nhân viên",
+  "active": true,
+  "diaChi": "123 Đường ABC, TP. Hồ Chí Minh",
+  "loaiNhanVien": "Part-time",
+  "sdt": "0123442789",
+  "tenNhanVien": "Nguyen Van B",
+  "username": "nguyenvanb",
+  "password": "$2b$10$IqPbYjnpVms1MHy6mz6E/Oc5Mf8nCutB5MG9dr3zqIIJTW59WCGne",
+  "hinhNhanVien": "images/avatar/NguyenVanB.jpg",
+  "khoa": false
+},
+{
+  "_id": {
+    "$oid": "6707c98d5c35fcaa87062bdb"
+  },
+  "id_NV": "NV003",
+  "cccd": "123454229",
+  "email": "nguyenvand@email.com",
+  "role": "Quản lý",
+  "active": true,
+  "diaChi": "123 Đường ABC, TP. Hồ Chí Minh",
+  "loaiNhanVien": "Full-time",
+  "sdt": "0123452189",
+  "tenNhanVien": "Nguyen Van D",
+  "username": "nguyenvand",
+  "password": "$2b$10$IqPbYjnpVms1MHy6mz6E/Oc5Mf8nCutB5MG9dr3zqIIJTW59WCGne",
+  "hinhNhanVien": "images/avatar/avatar-default.jpg",
+  "khoa": true
+}]

@@ -1,0 +1,103 @@
+
+    <div class="page-inner">
+    <div class="row">
+        <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round">
+            <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-icon">
+                <div
+                    class="icon-big text-center icon-primary bubble-shadow-small"
+                >
+                    <i class="fas fa-users"></i>
+                </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                <div class="numbers">
+                    <p class="card-category">Khách hàng mới</p>
+                    <h4 class="card-title"></h4>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round">
+            <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-icon">
+                <div
+                    class="icon-big text-center icon-success bubble-shadow-small"
+                >
+                    <i class="fas fa-luggage-cart"></i>
+                </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                <div class="numbers">
+                    <p class="card-category">Doanh thu</p>
+                    <h4 class="card-title"></h4>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round">
+            <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-icon">
+                <div
+                    class="icon-big text-center icon-secondary bubble-shadow-small"
+                >
+                    <i class="far fa-check-circle"></i>
+                </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                <div class="numbers">
+                    <p class="card-category">Đơn hàng</p>
+                    <h4 class="card-title"></h4>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+        <div class="card card-round">
+            <div class="card-header">
+            <div class="card-head-row">
+                <div class="card-title">Monthly Statistics</div>
+            </div>
+            </div>
+            <div class="card-body">
+            <div class="chart-container" style="min-height: 375px">
+                <canvas id="statisticsChart"></canvas>
+            </div>
+            <div id="myChartLegend"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<script>
+    //lấy tổng khách hàng mới
+    fetch('/api/customers/new')
+    .then(response => response.json())
+    .then(data => {
+        document.querySelector('.card-title:nth-of-type(1)').innerText = data.newCustomers;
+    })
+    .catch(err => console.error("Lỗi khi lấy số liệu khách hàng:", err));
+
+
+    fetch('/api/orders/daily')
+    .then(response => response.json())
+    .then(data => {
+        document.querySelectorAll('.card-title')[1].innerText = data.revenue;
+        document.querySelectorAll('.card-title')[2].innerText = data.ordersDaily;
+    })
+    .catch(err => console.error("Lỗi khi lấy số liệu đơn hàng:", err));
+</script>

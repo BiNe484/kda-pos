@@ -1,0 +1,253 @@
+<!-- ***** Main Banner Area Start ***** -->
+<!-- ***** Main Banner Area Start ***** -->
+<div class="page-heading" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="inner-content text-center">
+                    <h2 class="fw-bold text-uppercase">SINGLE PRODUCT</h2>
+                    <span class="text-muted">Discover our creative and quality products.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+<!-- ***** Main Banner Area End ***** -->
+
+<!-- ***** Product Area Starts ***** -->
+<section class="section" id="product">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="left-images">
+                    <img src="/{{sanPham.hinhSanPham}}" alt="{{sanPham.tenSanPham}}" class="product-image">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="right-content">
+                    <h3 class="product-title " style="text-align:center">{{sanPham.tenSanPham}}</h3>
+                    <span class="price">
+                        {{#if sanPham.size}}
+                        {{#each sanPham.size}}
+                        <div class="size-price " style = "font-size:16px" >
+                            <strong style="color: #1a1a1a;">{{this.kichCo}}:</strong> {{this.gia}} VNĐ
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <div class="size-price">
+                            <strong style="color: #1a1a1a;">Giá:</strong> {{sanPham.giaBan}} VNĐ
+                        </div>
+                        {{/if}}
+                    </span>
+
+
+                    {{#if sanPham.nguyenLieuCheBien}}
+                    <div class="product-ingredients">
+                        <h4  style=" margin-bottom:20px ; margin-top:20px">Nguyên liệu chế biến</h4>
+                        <ul>
+                            {{#each sanPham.nguyenLieuCheBien}}
+                            <li>
+                                <strong>{{this.tenNguyenLieu}}</strong>: {{this.dinhLuong}} {{this.donVi}}
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    {{/if}}
+
+
+                    {{#if sanPham.nhaCungCap}}
+                    <div class="product-supplier">
+                        <h4 style="text-align:center;  magrin-bottom:20px">Nhà cung cấp:</h4>
+                        <p>{{sanPham.nhaCungCap}}</p>
+                    </div>
+                    {{/if}}
+
+                    <div class="product-stock">
+                        <p style="font-size: 16px; font-weight: bold; color: #555; display: inline;">Số lượng còn lại:
+                        </p>
+                        <p class="stock-quantity" style="color: green; display: inline;">{{sanPham.soLuongTon}} sản phẩm
+                        </p>
+                    </div>
+
+
+
+                    <p class="product-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore.</p>
+
+                    <div class="quote">
+                        <i class="fa fa-quote-left"></i>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Product Area Ends ***** -->
+<style>
+    /* Main Banner Styling */
+    .page-heading {
+        background: linear-gradient(to right, #000000b0, #1a1a1a), url('assets/images/banner-bg.jpg');
+        background-size: cover;
+        color: white;
+        padding: 60px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* Shadow effect on the main banner */
+    }
+
+    .inner-content h2 {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    .section-heading h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+    }
+
+    .section-heading span {
+        font-size: 1.1rem;
+    }
+
+    /* Product Area Styling */
+    #product {
+        background-color: #fff;
+        padding: 40px 0;
+        border-radius: 8px;
+        /* Round corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        /* Soft shadow around the product section */
+    }
+
+    .quote {
+        background-color: #f7f7f7;
+        padding: 15px;
+        margin-bottom: 20px;
+        font-style: italic;
+    }
+
+    .quote p {
+        font-size: 16px;
+        color: #555;
+        margin-top: 10px;
+    }
+
+
+    .product-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .price-section {
+        margin-bottom: 20px;
+    }
+
+    .size-price {
+        font-size: 18px;
+        margin: 5px 0;
+    }
+
+    .size-price strong {
+        color: #007bff;
+    }
+
+    .product-description {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .product-ingredients {
+        margin-bottom: 20px;
+    }
+
+    .product-ingredients h4 {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .product-ingredients ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .product-ingredients li {
+        font-size: 16px;
+        color: #555;
+    }
+
+    .product-supplier,
+    .product-stock {
+        margin-bottom: 20px;
+    }
+
+    .product-supplier h4,
+    .product-stock h4 {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .product-supplier p,
+    .product-stock p {
+        font-size: 16px;
+        color: #555;
+    }
+
+    /* Adjust Image Size */
+    .product-image {
+        width: 100%;
+        /* Set width to 100% of its parent container */
+        height: 100%;
+        /* Set height to 100% of its parent container */
+        object-fit: contain;
+        /* Ensure the image fits without cropping or stretching */
+        margin: 0 auto;
+        display: block;
+        border-radius: 8px;
+        /* Rounded corners on the image */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        /* Soft shadow on the image */
+        max-height: 500px;
+
+    }
+
+    /* Hover effect for product title and description */
+    .product-title:hover {
+        color: #007bff;
+        cursor: pointer;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .product-description:hover {
+        color: #777;
+        transition: color 0.3s ease-in-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 767px) {
+        #product .row {
+            flex-direction: column;
+        }
+
+        .left-images,
+        .right-content {
+            text-align: center;
+        }
+
+        .product-image {
+            width: 60%;
+            height: auto;
+        }
+
+        .product-title {
+            font-size: 24px;
+        }
+    }
+</style>

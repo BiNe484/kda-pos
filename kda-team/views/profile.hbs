@@ -1,0 +1,123 @@
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12" style="max: width 1000px;">
+            <div class="card " style="border: 2px solid rgb(0, 123, 255); padding: 20px; border-radius: 10px;">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h4 class="card-title">Thông Tin Tài Khoản</h4>
+                    <button class="btn btn-primary btn-round" data-bs-toggle="modal" data-bs-target="#editProfileModal"
+                        data-id="{{adminInfo.id_NV}}">
+                        <i class="fa fa-edit"></i> Chỉnh Sửa
+                    </button>
+                </div>
+
+                <div class="card-body">
+                    <div class="profile-header d-flex flex-column align-items-center mb-3">
+                        <img id="avatar" src="/{{adminInfo.hinhNhanVien }}" alt="Avatar" class="avatar-icon" />
+                        <h5 class="ml-2">{{adminInfo.tenNhanVien}}</h5>
+                    </div>
+
+                    <div class="profile-info">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th>Tên Nhân Viên</th>
+                                    <td>{{adminInfo.tenNhanVien}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{adminInfo.email}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Số Điện Thoại</th>
+                                    <td>{{adminInfo.sdt}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Địa Chỉ</th>
+                                    <td>{{adminInfo.diaChi}}</td>
+                                </tr>
+                                <tr>
+                                    <th>CCCD</th>
+                                    <td>{{adminInfo.cccd}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Vai Trò</th>
+                                    <td>{{adminInfo.role}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Loại Nhân Viên</th>
+                                    <td>{{adminInfo.loaiNhanVien}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <!--   Core JS Files   -->
+                    <script src="/admin/js/core/jquery-3.7.1.min.js"></script>
+                    <script src="/admin/js/core/popper.min.js"></script>
+                    <script src="/admin/js/core/bootstrap.min.js"></script>
+
+                    <!-- jQuery Scrollbar -->
+                    <script src="/admin/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+                    <!-- Kaiadmin JS -->
+                    <script src="/admin/js/kaiadmin.min.js"></script>
+
+                    {{>profile-edit}}
+
+
+                    <style>
+                        .avatar-icon {
+                            width: 100px;
+                            height: 100px;
+                            border-radius: 50%;
+                            border: 3px solid rgb(0, 123, 255);
+                            margin-bottom: 10px;
+                        }
+
+                        .profile-header {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            text-align: center;
+                        }
+
+                        .info-item strong {
+                            color: rgb(0, 123, 255);
+                        }
+
+                        .info-item {
+                            margin: 5px 0;
+                            margin-left: 200px;
+                        }
+
+                        .page-inner {
+                            margin-top: 50px;
+                            /* Thêm khoảng cách từ trên xuống */
+                            display: flex;
+                            justify-content: center;
+                            /* Căn giữa theo chiều ngang */
+                            align-items: center;
+                            /* Căn giữa theo chiều dọc */
+                            height: 100vh;
+                            /* Đảm bảo chiều cao của page-inner chiếm toàn bộ màn hình */
+                            padding: 0 20px;
+                            /* Thêm padding bên trái và bên phải */
+                            margin-top: 50px;
+                        }
+
+                        .card {
+                            border: 2px solid rgb(0, 123, 255);
+                            max-width: 1000px;
+                            /* Giới hạn chiều rộng tối đa cho card */
+                            width: 100%;
+                            /* Đảm bảo card chiếm toàn bộ chiều rộng có thể */
+                            margin: 0 auto;
+                            /* Căn giữa card theo chiều ngang nếu không sử dụng Flexbox */
+                        }
+
+
+                        .page-header {
+                            padding-top: 20px;
+                            /* Thêm khoảng cách giữa header và nội dung bên dưới */
+                        }
+                    </style>

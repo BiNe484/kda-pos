@@ -1,0 +1,27 @@
+[
+    {
+      "_id": { "$oid": "6702ae2048d317f2b42ef378" },
+      "id_NL": "NL001",
+      "tenNguyenLieu": "Cacao",
+      "tonKho": 50,
+      "donVi": "kg",
+      "HSD": "2024-12-31"
+    },
+    {
+      "_id": { "$oid": "6702ae2048d317f2b42ef379" },
+      "id_NL": "NL002",
+      "tenNguyenLieu": "Bột cà phê",
+      "tonKho": 30,
+      "donVi": "kg",
+      "HSD": "2024-10-15"
+    },
+    {
+      "_id": { "$oid": "6702ae2048d317f2b42ef380" },
+      "id_NL": "NL003",
+      "tenNguyenLieu": "Sữa đặc",
+      "tonKho": 20,
+      "donVi": "kg",
+      "HSD": "2024-11-01"
+    }
+  ]
+  

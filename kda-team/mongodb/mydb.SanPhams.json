@@ -1,0 +1,139 @@
+[{
+  "_id": {
+    "$oid": "6702ad4f48d317f2b42ef36f"
+  },
+  "id_SP": "SP001",
+  "tenSanPham": "Bánh Socola",
+  "loaiSanPham": "Bánh",
+  "giaBan": 50000,
+  "soLuongTon": 10,
+  "hinhSanPham": "images/products/ChocolateCake.jpg"
+},
+{
+  "_id": {
+    "$oid": "6724dd399149540a1a78785b"
+  },
+  "id_SP": "SP003",
+  "hinhSanPham": "images/products/Matcha.png",
+  "tenSanPham": "Matcha đá xay",
+  "loaiSanPham": "Nước uống",
+  "soLuongTon": 0,
+  "giaBan": 15000,
+  "size": [
+    {
+      "kichCo": "M",
+      "gia": "15000"
+    },
+    {
+      "kichCo": "L",
+      "gia": 28000
+    }
+  ],
+  "nguyenLieuCheBien": [
+    {
+      "id_NL": "NL001",
+      "tenNguyenLieu": "Cacao",
+      "dinhLuong": 0.05,
+      "donVi": "kg"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6724de909149540a1a78785c"
+  },
+  "id_SP": "SP004",
+  "hinhSanPham": "images/products/Sting.jpg",
+  "tenSanPham": "Sting dâu",
+  "loaiSanPham": "Nước uống",
+  "giaBan": 10000,
+  "soLuongTon": 190
+},
+{
+  "_id": {
+    "$oid": "6724e14d9149540a1a78785d"
+  },
+  "id_SP": "SP002",
+  "tenSanPham": "Cà phê đá",
+  "loaiSanPham": "Nước uống",
+  "giaBan": 30000,
+  "soLuongTon": 10,
+  "hinhSanPham": "images/products/BlackIceCafe.png",
+  "size": [
+    {
+      "kichCo": "M",
+      "gia": 30000
+    },
+    {
+      "kichCo": "L",
+      "gia": 40000
+    },
+    {
+      "kichCo": "XL",
+      "gia": 67000
+    }
+  ],
+  "nguyenLieuCheBien": [
+    {
+      "id_NL": "NL001",
+      "tenNguyenLieu": "Bột cà phê",
+      "dinhLuong": 0.05,
+      "donVi": "kg"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6724eedb9149540a1a78785e"
+  },
+  "id_SP": "SP005",
+  "tenSanPham": "Cà phê sữa đá",
+  "loaiSanPham": "Nước uống",
+  "giaBan": 35000,
+  "soLuongTon": 10,
+  "hinhSanPham": "images/products/MilkIceCafe.jpg",
+  "size": [
+    {
+      "kichCo": "M",
+      "gia": 35000
+    },
+    {
+      "kichCo": "L",
+      "gia": 42000
+    },
+    {
+      "kichCo": "XL",
+      "gia": 67000
+    }
+  ],
+  "nguyenLieuCheBien": [
+    {
+      "id_NL": "NL001",
+      "tenNguyenLieu": "Sữa đặc",
+      "dinhLuong": 0.05,
+      "donVi": "kg"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6724ef639149540a1a78785f"
+  },
+  "id_SP": "SP006",
+  "hinhSanPham": "images/products/Cocacola.jpg",
+  "tenSanPham": "Cocacola",
+  "loaiSanPham": "Nước uống",
+  "giaBan": 10000,
+  "soLuongTon": 100
+},
+{
+  "_id": {
+    "$oid": "6724f05d9149540a1a787860"
+  },
+  "id_SP": "SP007",
+  "tenSanPham": "Bánh Mochi Cacao",
+  "loaiSanPham": "Bánh",
+  "giaBan": 50000,
+  "soLuongTon": 0,
+  "hinhSanPham": "images/products/MochiCacao.jpg"
+}]

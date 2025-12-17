@@ -1,0 +1,126 @@
+<div class="page-inner">
+  <div class="page-header">
+    <h3 class="fw-bold mb-3">DANH SÁCH</h3>
+    <ul class="breadcrumbs mb-3">
+      <li class="nav-home">
+        <a href="/admin"><i class="icon-home"></i></a>
+      </li>
+      <li class="separator"><i class="icon-arrow-right"></i></li>
+      <li class="nav-item"><a href="/admin/products">Danh sách sản phẩm</a></li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title">Danh Sách Sản Phẩm</h4>
+            <button class="btn btn-primary btn-round ms-auto" 
+              data-bs-toggle="modal" data-bs-target="#addProductModal">
+              <i class="fa fa-plus"></i> Thêm Sản Phẩm
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="product-table" class="display table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Tên Sản Phẩm</th>
+                  <th>Hình ảnh</th>
+                  <th>Loại</th>
+                  <th>Giá Bán</th>
+                  <th>Số Lượng Tồn</th>
+                  <th>Size available</th>
+                  <th>Nguyên liệu</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>ID</th>
+                  <th>Tên Sản Phẩm</th>
+                  <th>Hình ảnh</th>
+                  <th>Loại</th>
+                  <th>Giá Bán</th>
+                  <th>Số Lượng Tồn</th>
+                  <th>Size available</th>
+                  <th>Nguyên liệu</th>
+                </tr>
+              </tfoot>
+              <tbody>
+                {{#each sanPhams}}
+                <tr>
+                  <td>{{this.id_SP}}</td>
+                  <td>{{this.tenSanPham}}</td>
+                  <td><img src="/{{this.hinhSanPham}}" alt="Hình sản phẩm" style="width: 100px; height: auto;"></td>
+                  <td>{{this.loaiSanPham}}</td>
+                  <td>{{this.giaBan}}</td>
+                  <td>{{this.soLuongTon}}</td>
+                  <td>{{#commaSeparated this.size}} {{this.kichCo}}: {{this.gia}} {{/commaSeparated}}</td>
+                  <td>{{#commaSeparated this.nguyenLieuCheBien}} {{this.tenNguyenLieu}}: {{this.dinhLuong}}{{this.donVi}} {{/commaSeparated}}</td>
+                  <td>
+                    <div class="form-button-action">
+                      <button class="btn btn-link btn-primary btn-lg btn-edit" 
+                        data-bs-toggle="tooltip" title="Sửa Sản Phẩm" data-id="{{this.id_SP}}">
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button class="btn btn-link btn-danger btn-delete" 
+                        data-bs-toggle="tooltip" title="Xóa Sản Phẩm" data-id="{{this.id_SP}}">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="6" class="text-center">Không có sản phẩm nào.</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{>ad-products-add}}
+
+{{>ad-products-delete}}
+
+{{>ad-products-edit}}
+<!-- JS Dependencies -->
+<script src="/admin/js/core/jquery-3.7.1.min.js"></script>
+<script src="/admin/js/core/popper.min.js"></script>
+<script src="/admin/js/core/bootstrap.min.js"></script>
+<script src="/admin/js/plugin/datatables/datatables.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    // Khởi tạo DataTable
+    $('#product-table').DataTable({
+      pageLength: 5,
+      initComplete: function () {
+        this.api()
+          .columns()
+          .every(function () {
+            var column = this;
+            var select = $('<select class="form-select"><option value=""></option></select>')
+              .appendTo($(column.footer()).empty())
+              .on('change', function () {
+                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                column.search(val ? '^' + val + '$' : '', true, false).draw();
+              });
+            column.data().unique().sort().each(function (d) {
+              select.append(`<option value="${d}">${d}</option>`);
+            });
+          });
+      },
+    });
+  });
+</script>

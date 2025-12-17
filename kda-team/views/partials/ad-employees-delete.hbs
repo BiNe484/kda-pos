@@ -1,0 +1,55 @@
+<!-- Modal Xóa Nhân viên -->
+<div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title text-danger">
+          <span class="fw-mediumbold">Xóa</span>
+          <span class="fw-light">Nhân viên</span>
+        </h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc chắn muốn xóa nhân viên này không?</p>
+        <p class="text-muted">Hành động này không thể hoàn tác.</p>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-danger" id="confirmDeleteButton">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Sự kiện khi nhấn nút Xóa
+    $('#employees-table').on('click', '.btn-delete', function () {
+      const employeeId = $(this).data('id');
+      console.log('Employee ID:', employeeId); // Kiểm tra ID nhân viên
+
+      $('#deleteEmployeeModal').modal('show');
+
+      $('#confirmDeleteButton').off('click').on('click', function () {
+        fetch(`/admin/employees/delete/${employeeId}`, {
+          method: 'DELETE',
+        })
+          .then(response => {
+            if (!response.ok) throw new Error('Lỗi khi xóa nhân viên');
+            return response.json();
+          })
+          .then(data => {
+            console.log(data); // Kiểm tra phản hồi từ server
+            alert(data.message);
+            location.reload(); // Làm mới trang sau khi xóa
+          })
+          .catch(error => {
+            console.error('Lỗi:', error);
+            alert('Có lỗi xảy ra');
+          });
+      });
+    });
+  });
+</script>

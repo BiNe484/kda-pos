@@ -1,0 +1,87 @@
+    .page-heading {
+        background-color: #2e2e2e;
+        padding: 50px 0;
+        text-align: center;
+    }
+
+    .inner-content h2 {
+        font-size: 36px;
+        color: #333;
+    }
+
+    .inner-content span {
+        font-size: 14px;
+        color: #777;
+    }
+
+    .product-image {
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-title {
+        font-size: 28px;
+        margin: 20px 0;
+        color: #333;
+    }
+
+    .price {
+        font-size: 16px;
+        color: #e67e22;
+    }
+
+    .size-price {
+        margin: 5px 0;
+        color: #e67e22;
+    }
+
+    .product-description {
+        font-size: 14px;
+        color: #555;
+        margin: 15px 0;
+    }
+
+    .quote {
+        background: #f1f1f1;
+        padding: 15px;
+        border-left: 5px solid #e67e22;
+        margin: 20px 0;
+    }
+
+    .quote p {
+        margin: 0;
+        color: #555;
+    }
+
+    .product-ingredients,
+    .product-supplier,
+    .product-stock {
+        margin-top: 20px;
+    }
+
+
+    h4 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+
+    ul li {
+        margin: 5px 0;
+        color: #666;
+    }
+
+    @media (max-width: 768px) {
+        .product-title {
+            font-size: 24px;
+        }
+
+        .quote {
+            font-size: 12px;
+        }
+    }
+

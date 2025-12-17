@@ -1,0 +1,135 @@
+<div class="page-inner">
+  <div class="page-header">
+    <h3 class="fw-bold mb-3">DANH SÁCH</h3>
+    <ul class="breadcrumbs mb-3">
+      <li class="nav-home">
+        <a href="/admin"><i class="icon-home"></i></a>
+      </li>
+      <li class="separator"><i class="icon-arrow-right"></i></li>
+      <li class="nav-item"><a href="/admin/employees">Danh sách nhân viên</a></li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title">Danh Sách Nhân viên</h4>
+            <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
+              data-bs-target="#addEmployeesModal">
+              <i class="fa fa-plus"></i> Thêm nhân viên
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="employees-table" class="display table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Tên nhân viên</th>
+                  <th>Số điện thoại</th>
+                  <th>Căn cước công dân</th>
+                  <th>Email</th>
+                  <th>Loại nhân viên</th>
+                  <th>Địa chỉ</th>
+                  <th>Chức vụ</th>
+                  <th>Trạng thái</th>
+                  <th>Khóa</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>ID</th>
+                  <th>Tên nhân viên</th>
+                  <th>Số điện thoại</th>
+                  <th>Căn cước công dân</th>
+                  <th>Email</th>
+                  <th>Loại nhân viên</th>
+                  <th>Địa chỉ</th>
+                  <th>Chức vụ</th>
+                  <th>Trạng thái</th>
+                  <th>Khóa</th>
+                </tr>
+              </tfoot>
+              <tbody>
+                {{#each nhanViens}}
+                <tr>
+                  <td>{{this.id_NV}}</td>
+                  <td>{{this.tenNhanVien}}</td>
+                  <td>{{this.sdt}}</td>
+                  <td>{{this.cccd}}</td>
+                  <td>{{this.email}}</td>
+                  <td>{{this.loaiNhanVien}}</td>
+                  <td>{{this.diaChi}}</td>
+                  <td>{{this.role}}</td>
+                  <td>{{this.active}}</td>
+                  <td>
+                    <!-- Cột Khóa: Checkbox readonly -->
+                    <input type="checkbox" class="form-check-input" disabled {{#if this.khoa}}checked{{/if}} />
+                  </td>
+                  <td>
+                    <div class="form-button-action">
+                      <button class="btn btn-link btn-primary btn-edit" data-bs-toggle="tooltip" title="Sửa Nhân viên"
+                        data-id="{{this.id_NV}}">
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button class="btn btn-link btn-danger btn-delete" data-bs-toggle="tooltip" title="Xóa Nhân viên"
+                        data-id="{{this.id_NV}}">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="6" class="text-center">Không có nhân viên nào .</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{>ad-employees-add}}
+
+{{>ad-employees-delete}}
+
+{{>ad-employees-edit}}
+<!-- JS Dependencies -->
+<script src="/admin/js/core/jquery-3.7.1.min.js"></script>
+<script src="/admin/js/core/popper.min.js"></script>
+<script src="/admin/js/core/bootstrap.min.js"></script>
+<script src="/admin/js/plugin/datatables/datatables.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    // Khởi tạo DataTable
+    $('#employees-table').DataTable({
+      pageLength: 5,
+      initComplete: function () {
+        this.api()
+          .columns()
+          .every(function () {
+            var column = this;
+            var select = $('<select class="form-select"><option value=""></option></select>')
+              .appendTo($(column.footer()).empty())
+              .on('change', function () {
+                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                column.search(val ? '^' + val + '$' : '', true, false).draw();
+              });
+            column.data().unique().sort().each(function (d) {
+              select.append(`<option value="${d}">${d}</option>`);
+            });
+          });
+      },
+    });
+  });
+</script>

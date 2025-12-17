@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "6702a27948d317f2b42ef366"
+  },
+  "id_NH": "NH001",
+  "NhapKho": [
+    {
+      "id_NL": "NL001",
+      "tenNguyenLieu": "Đường",
+      "nhaCungCap": "Cong Ty Cung Cap Duong",
+      "soLuongNhap": 50,
+      "donVi": "kg",
+      "ngayHetHan": {
+        "$date": "2024-12-31T00:00:00.000Z"
+      },
+      "id_NV": "NV001",
+      "ngayNhapHang": {
+        "$date": "2023-10-06T00:00:00.000Z"
+      }
+    },
+    {
+      "id_NL": "NL002",
+      "TenNguyenLieu": "Trà lài",
+      "NhaCungCap": "Cong Ty Cung Cap Trà Mộc",
+      "SoLuongNhap": 20,
+      "DonVi": "bịch",
+      "NgayHetHan": {
+        "$date": "2024-11-15T00:00:00.000Z"
+      },
+      "MaNhanVien": "NV002",
+      "NgayNhapKho": {
+        "$date": "2023-10-06T00:00:00.000Z"
+      }
+    }
+  ]
+}]

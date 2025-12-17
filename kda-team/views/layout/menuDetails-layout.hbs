@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
+        rel="stylesheet">
+    <!-- Tối ưu CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/templatemo-hexashop.css">
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+    <link rel="stylesheet" href="/css/lightbox.css">
+    <link rel="stylesheet" href="/css/menuDetails-style.css">
+    <!-- Chỉ giữ lại các thư viện cần thiết -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <title>{{title}} - KDA Web</title>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <a href="/" class="logo">
+                            <img src="/images/logo.png" loading="lazy" alt="Logo">
+                        </a>
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="/" >Home</a></li>
+                            <li class="scroll-to-section"><a href="/order">Order</a></li>
+                            <li class="scroll-to-section"><a href="/menu">Menu</a></li>
+                            <li class="scroll-to-section"><a href="/event">Event</a></li>
+                            <li class="submenu">
+                                <a href="javascript:;">Pages</a>
+                                <ul>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Products</a></li>
+                                    <li><a href="#">Single Product</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Profile Section -->
+                            {{#if user}}
+                                <li class="submenu">
+                                <a data-bs-toggle="collapse">Profile</a>
+                                <ul>
+                                    <li><a href="/profile">{{getUsername user.tenNhanVien}}</a></li>
+                                    {{#if (isAdmin user)}}
+                                    <li><a href="/admin"><span class="text-warning">Adminstrator</span></a></li>
+                                    {{/if}}
+                                    <li><a href="/logout"><span class="text-danger">Log out</span></a></li>
+                                </ul>
+                            </li>
+                            {{else}}
+                            <li class="scroll-to-section"><a href="/login"><span class="text-primary">Login</span></a>
+                            </li>
+                            {{/if}}
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    {{{body}}} <!-- Nơi nội dung sẽ được chèn -->
+
+    <!-- Scripts Tối Ưu -->
+    <script src="/js/jquery-2.1.0.min.js" defer></script>
+    <script src="/js/popper.js" defer></script>
+    <script src="/js/bootstrap.min.js" defer></script>
+    <script src="/js/owl-carousel.js" defer></script>
+    <script src="/js/accordions.js" defer></script>
+    <script src="/js/datepicker.js" defer></script>
+    <script src="/js/scrollreveal.min.js" defer></script>
+    <script src="/js/waypoints.min.js" defer></script>
+    <script src="/js/jquery.counterup.min.js" defer></script>
+    <script src="/js/imgfix.min.js" defer></script>
+    <script src="/js/slick.js" defer></script>
+    <script src="//js/lightbox.js" defer></script>
+    <script src="/js/isotope.js" defer></script>
+
+    <!-- Global Init -->
+    <script src="/js/custom.js" defer></script>
+
+    <script>
+        $(function() {
+            var selectedClass = "";
+            $("p").click(function () {
+                selectedClass = $(this).attr("data-rel");
+                $("#portfolio").fadeTo(50, 0.1);
+                $("#portfolio div").not("." + selectedClass).fadeOut();
+                setTimeout(function () {
+                    $("." + selectedClass).fadeIn();
+                    $("#portfolio").fadeTo(50, 1);
+                }, 500);
+            });
+        });
+        window.addEventListener("DOMContentLoaded", function () {
+            const currentPath = window.location.pathname; // Lấy đường dẫn hiện tại
+            const navLinks = document.querySelectorAll(".nav a");
+
+            navLinks.forEach(link => {
+                if (link.getAttribute("href") === currentPath) {
+                    link.classList.add("active"); // Gán class 'active' cho link trùng với URL
+                } else {
+                    link.classList.remove("active"); // Bỏ 'active' khỏi các link khác
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

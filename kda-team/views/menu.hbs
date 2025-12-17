@@ -1,0 +1,232 @@
+<!-- ***** Main Banner Area Start ***** -->
+
+<div class="page-heading" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="inner-content text-center">
+                    <h2 class="fw-bold text-uppercase">Explore Our Products</h2>
+                    <span class="text-muted">Discover our creative and quality products.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+<!-- ***** Products Area Starts ***** -->
+<section class="section py-5" id="products">
+    <div class="container">
+        <div class="section-heading text-center mb-5">
+            <h2>Main Menu</h2>
+            <span class="text-muted">Browse our most recent additions.</span>
+        </div>
+
+        <div class="row">
+            {{#each sanPhams}}
+            {{#if this.soLuongTon}}
+            <div class="col-lg-4 mb-4">
+                <div class="item single-menu p-3">
+                    <div class="thumb position-relative">
+                        <img src="{{this.hinhSanPham}}" alt="{{this.tenSanPham}}" class="img-fluid rounded shadow-sm">
+                        <div
+                            class="hover-content position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
+                            <a href="/menu/details/{{this._id}}" class="btn btn-light btn-sm">Xem chi tiết</a>
+                        </div>
+                    </div>
+                    <div class="single-menu mt-3 text-center">
+                        <h4 class="fw-semibold">{{this.tenSanPham}}</h4>
+                        <p class="price text-primary">{{this.giaBan}} VNĐ</p>
+                        <p class="status {{#if this.soLuongTon}}text-success{{else}}text-danger{{/if}} fw-bold">
+                            {{#if this.soLuongTon}}Còn hàng{{else}}Hết hàng{{/if}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-wrapper d-flex justify-content-center mt-4">
+            <ul class="pagination">
+                {{#if (gt currentPage 1)}}
+                <li><a href="?page={{subtract currentPage 1}}">«</a></li>
+                {{/if}}
+
+                {{#if (le totalPages 4)}}
+                {{#each (range 1 totalPages)}}
+                <li class="{{#if (eq this ../currentPage)}}active{{/if}}">
+                    <a href="?page={{this}}">{{this}}</a>
+                </li>
+                {{/each}}
+                {{else}}
+                {{#each (range 1 4)}}
+                <li class="{{#if (eq this ../currentPage)}}active{{/if}}">
+                    <a href="?page={{this}}">{{this}}</a>
+                </li>
+                {{/each}}
+                <li><span>...</span></li>
+                <li><a href="?page={{totalPages}}">{{totalPages}}</a></li>
+                {{/if}}
+
+                {{#if (lt currentPage totalPages)}}
+                <li><a href="?page={{add currentPage 1}}">»</a></li>
+                {{/if}}
+            </ul>
+        </div>
+
+
+    </div>
+</section>
+
+<!-- ***** Products Area Ends ***** -->
+<style>
+   .page-heading {
+    background: linear-gradient(to right, #000000b0, #1a1a1a), url('assets/images/banner-bg.jpg');
+    background-size: cover;
+    color: white;
+    padding: 60px 0;
+}
+
+.inner-content h2 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.section-heading h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.section-heading span {
+    font-size: 1.1rem;
+}
+
+.single-menu {
+    background: #ffffff;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+}
+
+.single-menu:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.thumb {
+    position: relative;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.thumb img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Sử dụng contain để ảnh luôn hiển thị đầy đủ */
+    transition: transform 0.3s ease;
+}
+
+
+.thumb:hover img {
+    transform: scale(1.1);
+}
+
+.hover-content {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.thumb:hover .hover-content {
+    opacity: 1;
+}
+
+.hover-content a {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    background: #ffffff;
+    color: #007bff;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.hover-content a:hover {
+    background: #007bff;
+    color: white;
+}
+
+.single-menu h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    min-height: 60px;
+    margin: 15px 0 5px;
+    color: #333;
+}
+
+.price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ff5722;
+    margin-bottom: 5px;
+}
+
+.status {
+    font-size: 0.9rem;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin-top: auto;
+    color: #28a745;
+}
+
+.status.text-danger {
+    color: #dc3545;
+}
+
+.pagination {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.pagination li a {
+    text-decoration: none;
+    padding: 8px 14px;
+    border: 1px solid #007bff;
+    color: #007bff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.pagination li.active a {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination li a:hover {
+    background-color: #0056b3;
+    color: white;
+}
+ 
+</style>
